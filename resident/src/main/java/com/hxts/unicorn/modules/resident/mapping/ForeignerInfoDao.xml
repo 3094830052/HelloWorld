@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.ForeignerInfoDao">
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.ForeignerInfo">
+    <id column="foreigner_id" jdbcType="INTEGER" property="foreignerId" />
+    <result column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+    <result column="foreign_surname" jdbcType="VARCHAR" property="foreignSurname" />
+    <result column="foreign_given_name" jdbcType="VARCHAR" property="foreignGivenName" />
+    <result column="nationality" jdbcType="VARCHAR" property="nationality" />
+    <result column="certificate_code" jdbcType="VARCHAR" property="certificateCode" />
+    <result column="certificate_expire_date" jdbcType="VARCHAR" property="certificateExpireDate" />
+    <result column="purpose" jdbcType="VARCHAR" property="purpose" />
+    <result column="arrive_date" jdbcType="VARCHAR" property="arriveDate" />
+    <result column="expect_departure_date" jdbcType="VARCHAR" property="expectDepartureDate" />
+    <result column="is_focus_person" jdbcType="VARCHAR" property="isFocusPerson" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+  </resultMap>
+  <resultMap id="ForeignerInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.ForeignerResidentInfo">
+    <id column="foreigner_id" jdbcType="INTEGER" property="foreignerId" />
+    <result column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+    <result column="foreign_surname" jdbcType="VARCHAR" property="foreignSurname" />
+    <result column="foreign_given_name" jdbcType="VARCHAR" property="foreignGivenName" />
+    <result column="nationality" jdbcType="VARCHAR" property="nationality" />
+    <result column="certificate_code" jdbcType="VARCHAR" property="certificateCode" />
+    <result column="certificate_expire_date" jdbcType="VARCHAR" property="certificateExpireDate" />
+    <result column="purpose" jdbcType="VARCHAR" property="purpose" />
+    <result column="arrive_date" jdbcType="VARCHAR" property="arriveDate" />
+    <result column="expect_departure_date" jdbcType="VARCHAR" property="expectDepartureDate" />
+    <result column="is_focus_person" jdbcType="VARCHAR" property="isFocusPerson" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+  </resultMap>
+   <resultMap id="DtoResultMap" type="com.hxts.unicorn.modules.resident.dto.ForeignerInfoDto" >
+    <id column="foreigner_id" property="foreignerId" jdbcType="INTEGER" />  
+    <result column="nationality" property="nationality" jdbcType="VARCHAR" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="nationality" jdbcType="VARCHAR" property="nationality" />
+    <result column="integrity" jdbcType="DECIMAL" property="integrity" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    foreigner_id, resident_base_id, foreign_surname, foreign_given_name, nationality, 
+    certificate_code, certificate_expire_date, purpose, arrive_date, expect_departure_date, 
+    is_focus_person, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ForeignerInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from foreigner_info
+    where foreigner_id = #{foreignerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from foreigner_info
+    where foreigner_id = #{foreignerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.ForeignerInfo">
+    insert into foreigner_info (foreigner_id, resident_base_id, foreign_surname, 
+      foreign_given_name, nationality, certificate_code, 
+      certificate_expire_date, purpose, arrive_date, 
+      expect_departure_date, is_focus_person, create_user_id
+      )
+    values (#{foreignerId,jdbcType=INTEGER}, #{residentBaseId,jdbcType=INTEGER}, #{foreignSurname,jdbcType=VARCHAR}, 
+      #{foreignGivenName,jdbcType=VARCHAR}, #{nationality,jdbcType=VARCHAR}, #{certificateCode,jdbcType=VARCHAR}, 
+      #{certificateExpireDate,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{arriveDate,jdbcType=VARCHAR}, 
+      #{expectDepartureDate,jdbcType=VARCHAR}, #{isFocusPerson,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.ForeignerInfo">
+    insert into foreigner_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="foreignerId != null">
+        foreigner_id,
+      </if>
+      <if test="residentBaseId != null">
+        resident_base_id,
+      </if>
+      <if test="foreignSurname != null">
+        foreign_surname,
+      </if>
+      <if test="foreignGivenName != null">
+        foreign_given_name,
+      </if>
+      <if test="nationality != null">
+        nationality,
+      </if>
+      <if test="certificateCode != null">
+        certificate_code,
+      </if>
+      <if test="certificateExpireDate != null">
+        certificate_expire_date,
+      </if>
+      <if test="purpose != null">
+        purpose,
+      </if>
+      <if test="arriveDate != null">
+        arrive_date,
+      </if>
+      <if test="expectDepartureDate != null">
+        expect_departure_date,
+      </if>
+      <if test="isFocusPerson != null">
+        is_focus_person,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="foreignerId != null">
+        #{foreignerId,jdbcType=INTEGER},
+      </if>
+      <if test="residentBaseId != null">
+        #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="foreignSurname != null">
+        #{foreignSurname,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignGivenName != null">
+        #{foreignGivenName,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateCode != null">
+        #{certificateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateExpireDate != null">
+        #{certificateExpireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveDate != null">
+        #{arriveDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expectDepartureDate != null">
+        #{expectDepartureDate,jdbcType=VARCHAR},
+      </if>
+      <if test="isFocusPerson != null">
+        #{isFocusPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.ForeignerInfo">
+    update foreigner_info
+    <set>
+      <if test="residentBaseId != null">
+        resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="foreignSurname != null">
+        foreign_surname = #{foreignSurname,jdbcType=VARCHAR},
+      </if>
+      <if test="foreignGivenName != null">
+        foreign_given_name = #{foreignGivenName,jdbcType=VARCHAR},
+      </if>
+      <if test="nationality != null">
+        nationality = #{nationality,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateCode != null">
+        certificate_code = #{certificateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateExpireDate != null">
+        certificate_expire_date = #{certificateExpireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveDate != null">
+        arrive_date = #{arriveDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expectDepartureDate != null">
+        expect_departure_date = #{expectDepartureDate,jdbcType=VARCHAR},
+      </if>
+      <if test="isFocusPerson != null">
+        is_focus_person = #{isFocusPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where foreigner_id = #{foreignerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.ForeignerInfo">
+    update foreigner_info
+    set resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      foreign_surname = #{foreignSurname,jdbcType=VARCHAR},
+      foreign_given_name = #{foreignGivenName,jdbcType=VARCHAR},
+      nationality = #{nationality,jdbcType=VARCHAR},
+      certificate_code = #{certificateCode,jdbcType=VARCHAR},
+      certificate_expire_date = #{certificateExpireDate,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      arrive_date = #{arriveDate,jdbcType=VARCHAR},
+      expect_departure_date = #{expectDepartureDate,jdbcType=VARCHAR},
+      is_focus_person = #{isFocusPerson,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=INTEGER}
+    where foreigner_id = #{foreignerId,jdbcType=INTEGER}
+  </update>
+  <select id="getPurposeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+  	select name,count(*) total from
+  	(
+		select
+			case when purpose = '01' then '商务'
+			when purpose = '02' then '就业'
+			when purpose = '03' then '学习'
+			when purpose = '04' then '定居' 
+			when purpose = '05' then '探亲' 
+			else '其它' end name
+		from foreigner_info
+		<if test="residentBaseIds != null">
+			where foreigner_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	) t group by name
+  </select>
+
+  <select id="getAgeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+	select name,count(*) total from
+	(
+	select 
+	case when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 11 YEAR),'%Y%m%d') then '0~10岁'
+	when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 21 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 11 YEAR),'%Y%m%d') then '11~20岁'
+	when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 36 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 21 YEAR),'%Y%m%d') then '21~35岁'
+	when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 46 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 36 YEAR),'%Y%m%d') then '36~45岁'
+	when birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 46 YEAR),'%Y%m%d') then '46岁及以上'
+	else '其它' end name
+	from resident_base_info r inner join foreigner_info f on r.resident_base_id = f.resident_base_id
+	<if test="residentBaseIds != null">
+			where r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</if>
+	) t group by name
+  </select>
+  <select id="queryForeignerInfoListByKeywords" resultMap="DtoResultMap">
+		select r.resident_base_id,r.name,r.sex,r.id_no,r.contact,r.integrity,f.foreigner_id,f.nationality from foreigner_info f 
+		inner join resident_base_info r on f.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="nationality != null" >
+        and f.nationality = #{nationality,jdbcType=VARCHAR}
+        </if>
+        <if test="integrity != null">
+        and #{integrity,jdbcType=DECIMAL} >= r.integrity 
+      	</if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.HouseDao">
+	<resultMap id="BaseHouseInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+		<id column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="unit_number" jdbcType="INTEGER" property="unitNumber" />
+		<result column="floor_number" jdbcType="INTEGER" property="floorNumber" />
+		<result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+		<result column="structure_area" jdbcType="DOUBLE" property="structureArea" />
+		<result column="usable_area" jdbcType="DOUBLE" property="usableArea" />
+		<result column="pool_area" jdbcType="DOUBLE" property="poolArea" />
+		<result column="house_type" jdbcType="VARCHAR" property="houseType" />
+		<result column="id_code" jdbcType="VARCHAR" property="idCode" />
+		<result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+		<result column="input_time" jdbcType="TIMESTAMP" property="inputTime" />
+		<result column="building_id" jdbcType="BIGINT" property="buildingId" />
+		<result column="ower1_name" jdbcType="VARCHAR" property="ower1Name" />
+		<result column="ower1_contact" jdbcType="VARCHAR" property="ower1Contact" />
+		<result column="ower1_no_type" jdbcType="VARCHAR" property="ower1NoType" />
+		<result column="ower1_no" jdbcType="VARCHAR" property="ower1No" />
+		<result column="ower1_address" jdbcType="VARCHAR" property="ower1Address" />
+		<result column="ower2_name" jdbcType="VARCHAR" property="ower2Name" />
+		<result column="ower2_contact" jdbcType="VARCHAR" property="ower2Contact" />
+		<result column="ower2_no_type" jdbcType="VARCHAR" property="ower2NoType" />
+		<result column="ower2_no" jdbcType="VARCHAR" property="ower2No" />
+		<result column="ower2_address" jdbcType="VARCHAR" property="ower2Address" />
+
+	</resultMap>
+	<resultMap id="HouseInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+		<id column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="unit_number" jdbcType="INTEGER" property="unitNumber" />
+		<result column="floor_number" jdbcType="INTEGER" property="floorNumber" />
+		<result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+		<result column="structure_area" jdbcType="DOUBLE" property="structureArea" />
+		<result column="usable_area" jdbcType="DOUBLE" property="usableArea" />
+		<result column="pool_area" jdbcType="DOUBLE" property="poolArea" />
+		<result column="house_type" jdbcType="VARCHAR" property="houseType" />
+		<result column="id_code" jdbcType="VARCHAR" property="idCode" />
+		<result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+		<result column="input_time" jdbcType="TIMESTAMP" property="inputTime" />
+		<result column="building_id" jdbcType="BIGINT" property="buildingId" />
+		<result column="ower1_name" jdbcType="VARCHAR" property="ower1Name" />
+		<result column="ower1_contact" jdbcType="VARCHAR" property="ower1Contact" />
+		<result column="ower1_no_type" jdbcType="VARCHAR" property="ower1NoType" />
+		<result column="ower1_no" jdbcType="VARCHAR" property="ower1No" />
+		<result column="ower1_address" jdbcType="VARCHAR" property="ower1Address" />
+		<result column="ower2_name" jdbcType="VARCHAR" property="ower2Name" />
+		<result column="ower2_contact" jdbcType="VARCHAR" property="ower2Contact" />
+		<result column="ower2_no_type" jdbcType="VARCHAR" property="ower2NoType" />
+		<result column="ower2_no" jdbcType="VARCHAR" property="ower2No" />
+		<result column="ower2_address" jdbcType="VARCHAR" property="ower2Address" />
+		<association property="buildingInfo" column="building_id"
+			javaType="com.hxts.unicorn.platform.interfaces.biz.BuildingInfo">
+			<id column="building_id" jdbcType="BIGINT" property="buildingId" />
+			<result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+			<result column="aboveground_num" jdbcType="INTEGER" property="abovegroundNum" />
+			<result column="underground_num" jdbcType="INTEGER" property="undergroundNum" />
+			<result column="household_num" jdbcType="INTEGER" property="householdNum" />
+			<result column="building_purpose" jdbcType="INTEGER" property="buildingPurpose" />
+			<result column="street" jdbcType="VARCHAR" property="street" />
+			<result column="community" jdbcType="VARCHAR" property="community" />
+			<result column="unit_num" jdbcType="INTEGER" property="unitNum" />
+			<result column="province" jdbcType="VARCHAR" property="province" />
+			<result column="city" jdbcType="VARCHAR" property="city" />
+			<result column="district" jdbcType="VARCHAR" property="district" />
+			<result column="address" jdbcType="VARCHAR" property="address" />
+			<result column="grid_id" jdbcType="INTEGER" property="gridId" />
+			<result column="grid_name" jdbcType="VARCHAR" property="gridName" />
+		</association>
+	</resultMap>
+	<resultMap id="HouseModelResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.HouseModelInfo">
+		<result column="floor_scope" jdbcType="VARCHAR" property="floorScope" />
+		<result column="households_scope" jdbcType="VARCHAR" property="householdScope" />
+		<result column="householdNum" jdbcType="INTEGER" property="householdNum" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		house_id, unit_number, floor_number, house_number,
+		structure_area, usable_area, pool_area, house_type, id_code,
+		id_number, input_time,
+		building_id, id_code, id_number, ower1_name, ower1_contact,
+		ower1_no_type, ower1_no,
+		ower1_address,
+		ower2_name, ower2_contact,
+		ower2_no_type, ower2_no,
+		ower2_address
+	</sql>
+	<delete id="deleteHouseById" parameterType="java.lang.Long">
+		delete from house
+		where
+		house_id = #{houseId,jdbcType=BIGINT}
+	</delete>
+	<insert id="addHouse" useGeneratedKeys="true" keyProperty="houseId"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+		insert into house (unit_number, floor_number,
+		house_number, structure_area, usable_area,
+		pool_area, house_type,
+		id_code,
+		id_number,
+		input_time,
+		building_id, ower1_name, ower1_contact,
+		ower1_no_type,
+		ower1_no,
+		ower1_address,
+		ower2_name, ower2_contact,
+		ower2_no_type,
+		ower2_no,
+		ower2_address)
+		values
+		(#{unitNumber,jdbcType=INTEGER},
+		#{floorNumber,jdbcType=INTEGER},
+		#{houseNumber,jdbcType=INTEGER},
+		#{structureArea,jdbcType=DOUBLE},
+		#{usableArea,jdbcType=DOUBLE},
+		#{poolArea,jdbcType=DOUBLE},
+		#{houseType,jdbcType=VARCHAR},
+		#{idCode,jdbcType=VARCHAR},
+		#{idNumber,jdbcType=VARCHAR},
+		#{inputTime,jdbcType=TIMESTAMP},
+		#{buildingId,jdbcType=BIGINT},#{ower1Name,jdbcType=VARCHAR},
+		#{ower1Contact,jdbcType=VARCHAR},#{ower1NoType,jdbcType=VARCHAR},#{ower1No,jdbcType=VARCHAR},#{ower1Address,jdbcType=VARCHAR},
+		#{ower2Name,jdbcType=VARCHAR},
+		#{ower2Contact,jdbcType=VARCHAR},#{ower2NoType,jdbcType=VARCHAR},#{ower2No,jdbcType=VARCHAR},#{ower2Address,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="batchAddHouse" useGeneratedKeys="true" keyProperty="houseId"
+		parameterType="java.util.List">
+		insert into house (unit_number, floor_number,
+		house_number,
+		structure_area, usable_area,
+		pool_area, house_type, id_code,
+		id_number,input_time,
+		building_id, ower1_name, ower1_contact,
+		ower1_no_type,
+		ower1_no,
+		ower1_address,
+		ower2_name, ower2_contact,
+		ower2_no_type,
+		ower2_no,
+		ower2_address) values
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			(#{item.unitNumber,jdbcType=INTEGER},
+			#{item.floorNumber,jdbcType=INTEGER},
+			#{item.houseNumber,jdbcType=INTEGER},
+			#{item.structureArea,jdbcType=DOUBLE},
+			#{item.usableArea,jdbcType=DOUBLE},
+			#{item.poolArea,jdbcType=DOUBLE},
+			#{item.houseType,jdbcType=VARCHAR},
+			#{item.idCode,jdbcType=VARCHAR},
+			#{item.idNumber,jdbcType=VARCHAR},
+			#{item.inputTime,jdbcType=TIMESTAMP},
+			#{item.buildingId,jdbcType=BIGINT},#{item.ower1Name,jdbcType=VARCHAR},
+			#{item.ower1Contact,jdbcType=VARCHAR},#{item.ower1NoType,jdbcType=VARCHAR},#{item.ower1No,jdbcType=VARCHAR},#{item.ower1Address,jdbcType=VARCHAR},
+			#{item.ower2Name,jdbcType=VARCHAR},
+			#{item.ower2Contact,jdbcType=VARCHAR},#{item.ower2NoType,jdbcType=VARCHAR},#{item.ower2No,jdbcType=VARCHAR},#{item.ower2Address,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+	<update id="modifyHouse" parameterType="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+		update house
+		<set>
+			<if test="unitNumber != null">
+				unit_number = #{unitNumber,jdbcType=INTEGER},
+			</if>
+			<if test="floorNumber != null">
+				floor_number = #{floorNumber,jdbcType=INTEGER},
+			</if>
+			<if test="houseNumber != null">
+				house_number = #{houseNumber,jdbcType=INTEGER},
+			</if>
+			<if test="structureArea != null">
+				structure_area = #{structureArea,jdbcType=DOUBLE},
+			</if>
+			<if test="usableArea != null">
+				usable_area = #{usableArea,jdbcType=DOUBLE},
+			</if>
+			<if test="poolArea != null">
+				pool_area = #{poolArea,jdbcType=DOUBLE},
+			</if>
+			<if test="houseType != null">
+				house_type = #{houseType,jdbcType=VARCHAR},
+			</if>
+			<if test="idCode != null">
+				id_code = #{idCode,jdbcType=VARCHAR},
+			</if>
+			<if test="idNumber != null">
+				id_number = #{idNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="inputTime != null">
+				input_time = #{inputTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="buildingId != null">
+				building_id = #{buildingId,jdbcType=BIGINT},
+			</if>
+			<if test="ower1Name != null">
+				ower1_name = #{ower1Name,jdbcType=VARCHAR},
+			</if>
+			<if test="ower1Contact != null">
+				ower1_contact = #{ower1Contact,jdbcType=VARCHAR},
+			</if>
+			<if test="ower1NoType != null">
+				ower1_no_type = #{ower1NoType,jdbcType=VARCHAR},
+			</if>
+			<if test="ower1No != null">
+				ower1_no = #{ower1No,jdbcType=VARCHAR},
+			</if>
+			<if test="ower1Address != null">
+				ower1_address = #{ower1Address,jdbcType=VARCHAR},
+			</if>
+			<if test="ower2Name != null">
+				ower2_name = #{ower2Name,jdbcType=VARCHAR},
+			</if>
+			<if test="ower2Contact != null">
+				ower2_contact = #{ower2Contact,jdbcType=VARCHAR},
+			</if>
+			<if test="ower2NoType != null">
+				ower2_no_type = #{ower2NoType,jdbcType=VARCHAR},
+			</if>
+			<if test="ower2No != null">
+				ower2_no = #{ower2No,jdbcType=VARCHAR},
+			</if>
+			<if test="ower2Address != null">
+				ower2_address = #{ower2Address,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where house_id = #{houseId,jdbcType=BIGINT}
+	</update>
+	<update id="bathModifyHouse" parameterType="java.util.List">
+		update house
+		set
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			unit_number =
+			#{item.unitNumber,jdbcType=INTEGER},
+			floor_number =
+			#{item.floorNumber,jdbcType=INTEGER},
+			house_number =
+			#{item.houseNumber,jdbcType=INTEGER},
+			structure_area =
+			#{item.structureArea,jdbcType=DOUBLE},
+			usable_area =
+			#{item.usableArea,jdbcType=DOUBLE},
+			pool_area =
+			#{item.poolArea,jdbcType=DOUBLE},
+			house_type =
+			#{item.houseType,jdbcType=VARCHAR},
+			id_code =
+			#{item.idCode,jdbcType=VARCHAR},
+			id_number =
+			#{item.idNumber,jdbcType=VARCHAR},
+			input_time =
+			#{item.inputTime,jdbcType=TIMESTAMP},
+			building_id =
+			#{item.buildingId,jdbcType=BIGINT},
+			ower1_name =
+			#{item.ower1Name,jdbcType=VARCHAR},
+			ower1_contact =
+			#{item.ower1Contact,jdbcType=VARCHAR},
+			ower1_no_type =
+			#{item.ower1NoType,jdbcType=VARCHAR},
+			ower1_no =
+			#{item.ower1No,jdbcType=VARCHAR},
+			ower1_address =
+			#{item.ower1Address,jdbcType=VARCHAR},
+			ower2_name =
+			#{item.ower2Name,jdbcType=VARCHAR},
+			ower2_contact =
+			#{item.ower2Contact,jdbcType=VARCHAR},
+			ower2_no_type =
+			#{item.ower2NoType,jdbcType=VARCHAR},
+			ower2_no =
+			#{item.ower2No,jdbcType=VARCHAR},
+			ower2_address =
+			#{item.ower2Address,jdbcType=VARCHAR}
+			where house_id =
+			#{item.houseId,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<select id="queryBaseHouseById" parameterType="java.lang.Long"
+		resultMap="BaseHouseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from house
+		where house_id = #{houseId,jdbcType=BIGINT}
+		
+	</select>
+	<select id="queryHouseById" parameterType="java.lang.Long"
+		resultMap="HouseInfoResultMap">
+		select
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.structure_area,
+		h.usable_area,
+		h.pool_area,
+		h.house_type,
+		h.input_time, h.building_id,
+		h.id_code, h.id_number,
+		h.ower1_name,
+		h.ower1_contact, h.ower1_no_type, h.ower1_no,
+		h.ower1_address,
+		h.ower2_name, h.ower2_contact, h.ower2_no_type, h.ower2_no,
+		h.ower2_address,
+		b.building_id,
+		b.building_name,
+		b.aboveground_num,
+		b.underground_num,
+		b.household_num,
+		b.building_purpose,
+		b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.grid_id,
+		b.grid_name
+		from
+		house h,
+		building b
+		where
+		h.building_id =
+		b.building_id
+		and h.house_id =
+		#{houseId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryBaseHousesByBuildingId" parameterType="java.lang.Long"
+		resultMap="BaseHouseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from house
+		where building_id = #{buildingId,jdbcType=BIGINT}
+	</select>
+	<select id="queryHousesByBuildingId" parameterType="java.lang.Long"
+		resultMap="HouseInfoResultMap">
+		select
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.structure_area,
+		h.usable_area,
+		h.pool_area,
+		h.house_type,
+		h.input_time, h.building_id,
+		h.id_code, h.id_number,
+		h.ower1_name,
+		h.ower1_contact, h.ower1_no_type, h.ower1_no,
+		h.ower1_address,
+		h.ower2_name, h.ower2_contact, h.ower2_no_type, h.ower2_no,
+		h.ower2_address,
+		b.building_id,
+		b.building_name,
+		b.aboveground_num,
+		b.underground_num,
+		b.household_num,
+		b.building_purpose,
+		b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.grid_id,
+		b.grid_name
+		from
+		house h,
+		building b
+		where h.building_id =
+		b.building_id and
+		h.building_id =
+		#{buildingId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryBaseHousesByBuildingIds" parameterType="java.lang.Long"
+		resultMap="BaseHouseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from house
+		where 1=1
+		<if test="null != buildingIds and buildingIds.size > 0">
+			and building_id in
+			<foreach item="item" index="index" collection="buildingIds"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryHousesByBuildingIds" parameterType="java.lang.Long"
+		resultMap="HouseInfoResultMap">
+		select
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.structure_area,
+		h.usable_area,
+		h.pool_area,
+		h.house_type,
+		h.input_time,
+		h.building_id,
+		h.id_code, h.id_number,
+		h.ower1_name,
+		h.ower1_contact, h.ower1_no_type,
+		h.ower1_no,
+		h.ower1_address,
+		h.ower2_name, h.ower2_contact,
+		h.ower2_no_type, h.ower2_no,
+		h.ower2_address,
+		b.building_id,
+		b.building_name,
+		b.aboveground_num,
+		b.underground_num,
+		b.household_num,
+		b.building_purpose,
+		b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.grid_id,
+		b.grid_name
+		from
+		house h,
+		building b
+		where h.building_id =
+		b.building_id
+		<if test="null != buildingIds and buildingIds.size > 0">
+			and h.building_id in
+			<foreach item="item" index="index" collection="buildingIds"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryHouseModels" resultMap="HouseModelResultMap">
+		SELECT
+		GROUP_CONCAT(a.floor_number) floor_scope, a.householdNum,
+		a.households_scope FROM
+		(SELECT d.floor_number, COUNT(d.house_number)
+		householdNum, GROUP_CONCAT(d.house_number) households_scope FROM
+		(SELECT * FROM house h WHERE h.building_id =
+		#{buildingId,jdbcType=BIGINT} and h.unit_number =
+		#{unitNumber,jdbcType=INTEGER} )
+		d GROUP BY d.floor_number) a GROUP BY
+		a.householdNum;
+	</select>
+
+	<select id="queryBaseHousesByBuidlingIdUnitNumber" resultMap="BaseHouseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from house
+		where building_id = #{buildingId,jdbcType=BIGINT}
+		<if test="unitNumber != null">
+			and unit_number = #{unitNumber,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="queryHousesByBuidlingIdUnitNumber" resultMap="HouseInfoResultMap">
+		select
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.structure_area,
+		h.usable_area,
+		h.pool_area,
+		h.house_type,
+		h.input_time,
+		h.building_id,
+		h.id_code, h.id_number,
+		h.ower1_name,
+		h.ower1_contact, h.ower1_no_type,
+		h.ower1_no,
+		h.ower1_address,
+		h.ower2_name, h.ower2_contact,
+		h.ower2_no_type, h.ower2_no,
+		h.ower2_address,
+		b.building_id,
+		b.building_name,
+		b.aboveground_num,
+		b.underground_num,
+		b.household_num,
+		b.building_purpose,
+		b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.grid_id,
+		b.grid_name
+		from
+		house h,
+		building b
+		where h.building_id =
+		b.building_id and
+		h.building_id =
+		#{buildingId,jdbcType=BIGINT}
+		<if test="unitNumber != null">
+			and h.unit_number = #{unitNumber,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="queryBaseHouseInfos" resultMap="BaseHouseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from house where 1=1
+		<if test="unitNumber != null">
+			and unit_number =
+			#{unitNumber,jdbcType=INTEGER}
+		</if>
+		<if test="floorNumber != null">
+			and floor_number =
+			#{floorNumber,jdbcType=INTEGER}
+		</if>
+		<if test="houseNumber != null">
+			and house_number =
+			#{houseNumber,jdbcType=INTEGER}
+		</if>
+		<if test="null != buildings and buildings.size > 0">
+			and building_id in
+			<foreach item="item" index="index" collection="buildings"
+				open="(" separator="," close=")">
+				#{item.buildingId}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryHouseInfos" resultMap="HouseInfoResultMap">
+		select h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.structure_area,
+		h.usable_area,
+		h.pool_area,
+		h.house_type,
+		h.input_time,
+		h.building_id,
+		h.id_code, h.id_number,
+		h.ower1_name,
+		h.ower1_contact, h.ower1_no_type,
+		h.ower1_no,
+		h.ower1_address,
+		h.ower2_name, h.ower2_contact,
+		h.ower2_no_type, h.ower2_no,
+		h.ower2_address,
+		b.building_id,
+		b.building_name,
+		b.household_num,
+		b.building_purpose,
+		b.unit_num,
+		b.street, b.community,
+		b.grid_id,
+		b.grid_name
+		from
+		house h, building b
+		where h.building_id = b.building_id
+		<if test="unitNumber != null">
+			and h.unit_number =
+			#{unitNumber,jdbcType=INTEGER}
+		</if>
+		<if test="floorNumber != null">
+			and h.floor_number =
+			#{floorNumber,jdbcType=INTEGER}
+		</if>
+		<if test="houseNumber != null">
+			and h.house_number =
+			#{houseNumber,jdbcType=INTEGER}
+		</if>
+		<if test="null != buildings and buildings.size > 0">
+			and h.building_id in
+			<foreach item="item" index="index" collection="buildings"
+				open="(" separator="," close=")">
+				#{item.buildingId}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryHouseInfoByResidentNum" resultMap="HouseInfoResultMap">
+		select
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.house_type,
+		h.building_id,
+		h.id_code, h.id_number,
+		h.ower1_name,
+		h.ower1_contact, h.ower1_no_type,
+		h.ower1_no,
+		h.ower1_address,
+		h.ower2_name, h.ower2_contact,
+		h.ower2_no_type, h.ower2_no,
+		h.ower2_address,
+		b.building_id,
+		b.building_name,
+		b.street, b.community,
+		b.grid_name
+		from
+		house h, building
+		b
+		where h.building_id = b.building_id and (select count(*) from
+		resident_of_house r where
+		r.house_id = h.house_id) &gt;=
+		#{residentNum,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryBaseHouseByBuildingIdAndType" resultMap="BaseHouseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from house h where 1=1
+		<if test="buildingId != null">
+			and h.building_id =
+			#{buildingId,jdbcType=INTEGER}
+		</if>
+		<if test="houseType != null and houseType !=''">
+			and h.house_type =
+			#{houseType,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="queryBaseHouses" resultMap="BaseHouseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from house where 1=1
+		<if test="buildingId != null">
+			and building_id =
+			#{buildingId,jdbcType=INTEGER}
+		</if>
+		<if test="unitNumber != null">
+			and unit_number =
+			#{unitNumber,jdbcType=INTEGER}
+		</if>
+		<if test="floorNumber != null">
+			and floor_number =
+			#{floorNumber,jdbcType=INTEGER}
+		</if>
+		<if test="houseNumber != null">
+			and house_number =
+			#{houseNumber,jdbcType=INTEGER}
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.VisitorInOutRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.VisitorInOutRecord" >
+    <id column="record_id" property="recordId" jdbcType="INTEGER" />
+     <result column="sys_id" property="sysId" jdbcType="INTEGER" />
+    <result column="pass_time" property="passTime" jdbcType="TIMESTAMP" />
+    <result column="visitor_name" property="visitorName" jdbcType="VARCHAR" />
+    <result column="visitor_id" property="visitorId" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="open_type" property="openType" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="owner_room_id" property="ownerRoomId" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="in_out" property="inOut" jdbcType="TINYINT" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="due_time" property="dueTime" jdbcType="DATE" />
+  </resultMap>
+  <resultMap id="BaseInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.VisitorInOutRecordInfo">
+	<id column="record_id" property="recordId" jdbcType="INTEGER" />
+	<result column="sys_id" property="sysId" jdbcType="INTEGER" />
+    <result column="pass_time" property="passTime" jdbcType="TIMESTAMP" />
+    <result column="visitor_name" property="visitorName" jdbcType="VARCHAR" />
+    <result column="visitor_id" property="visitorId" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="open_type" property="openType" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="owner_room_id" property="ownerRoomId" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="in_out" property="inOut" jdbcType="TINYINT" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+	</resultMap>
+  <sql id="Base_Column_List" >
+    record_id, sys_id,pass_time, visitor_name, visitor_id, device_id, open_type, owner_name, 
+    owner_room_id, picture_url, in_out, position, due_time
+  </sql>
+  <select id="selectDistinctPositions" resultType="map">
+		SELECT DISTINCT POSITION FROM record_visitor WHERE POSITION IS NOT NULL AND POSITION != '' 
+	</select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from record_visitor
+    where record_id = #{recordId,jdbcType=INTEGER}
+  </select>
+  
+	<select id="selectByVariableConditions"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.VisitorInOutConditionModel"
+		resultMap="BaseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from record_visitor
+		<where>
+			occu_time between #{startTime} and #{endTime}
+			<if test="visitorId != null">
+				and card_id = #{visitorId,jdbcType=VARCHAR}
+			</if>
+			<if test="inOut != null">
+				and in_out = #{inOut,jdbcType=BIT}
+			</if>
+			<if test="position != null">
+				and position = #{position,jdbcType=VARCHAR}
+			</if>
+			<if test="openType != null">
+				and open_type = #{openType,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectOverdueRecord" parameterType="date" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from record_visitor where due_time <![CDATA[<]]>
+		#{date}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from record_visitor
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</delete>
+  
+	<insert id="transferToHistoryBase" parameterType="java.util.List">
+		<!-- useGeneratedKeys="true" -->
+		<!-- <selectKey resultType="long" keyProperty="id"> -->
+		<!-- SELECT LAST_INSERT_ID() -->
+		<!-- </selectKey> -->
+		insert into
+		record_visitor_overdue (
+		<include refid="Base_Column_List" />
+		)
+		values
+		<foreach collection="list" item="record" index="index" open="("
+			separator="," close=")">
+			#{record.recordId,jdbcType=INTEGER},
+			#{record.sysId,jdbcType=INTEGER},
+			#{record.passTime,jdbcType=TIMESTAMP},
+			#{record.visitorName,jdbcType=VARCHAR},
+			#{record.visitorId,jdbcType=VARCHAR},
+			#{record.deviceId,jdbcType=VARCHAR},
+			#{record.openType,jdbcType=VARCHAR},
+			#{record.ownerName,jdbcType=VARCHAR},
+			#{record.ownerRoomId,jdbcType=VARCHAR},
+			#{record.pictureUrl,jdbcType=VARCHAR},
+			#{record.inOut,jdbcType=BIT},
+			#{record.position,jdbcType=VARCHAR},
+			#{record.dueTime,jdbcType=DATE})
+		</foreach>
+	</insert>
+
+	<insert id="insert"
+		parameterType="com.hxts.unicorn.modules.resident.model.VisitorInOutRecord">
+		insert into record_visitor (
+		<include refid="Base_Column_List" />
+		)
+		values
+		(#{recordId,jdbcType=INTEGER},#{sysId,jdbcType=INTEGER},#{passTime,jdbcType=TIMESTAMP},
+		#{visitorName,jdbcType=VARCHAR},
+		#{visitorId,jdbcType=VARCHAR},
+		#{deviceId,jdbcType=VARCHAR}, #{openType,jdbcType=VARCHAR},
+		#{ownerName,jdbcType=VARCHAR}, #{ownerRoomId,jdbcType=VARCHAR},
+		#{pictureUrl,jdbcType=VARCHAR},
+		#{inOut,jdbcType=TINYINT},
+		#{position,jdbcType=VARCHAR}, #{dueTime,jdbcType=DATE})
+	</insert>
+
+	<insert id="insertSelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.VisitorInOutRecord">
+		insert into record_visitor
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="recordId != null">
+				record_id,
+			</if>
+			<if test="sysId != null">
+				sys_id,
+			</if>
+			<if test="passTime != null">
+				pass_time,
+			</if>
+			<if test="visitorName != null">
+				visitor_name,
+			</if>
+			<if test="visitorId != null">
+				visitor_id,
+			</if>
+			<if test="deviceId != null">
+				device_id,
+			</if>
+			<if test="openType != null">
+				open_type,
+			</if>
+			<if test="ownerName != null">
+				owner_name,
+			</if>
+			<if test="ownerRoomId != null">
+				owner_room_id,
+			</if>
+			<if test="pictureUrl != null">
+				picture_url,
+			</if>
+			<if test="inOut != null">
+				in_out,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+			<if test="dueTime != null">
+				due_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="recordId != null">
+				#{recordId,jdbcType=INTEGER},
+			</if>
+			<if test="sysId != null">
+				#{sysId,jdbcType=INTEGER},
+			</if>
+			<if test="passTime != null">
+				#{passTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="visitorName != null">
+				#{visitorName,jdbcType=VARCHAR},
+			</if>
+			<if test="visitorId != null">
+				#{visitorId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				#{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="openType != null">
+				#{openType,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerName != null">
+				#{ownerName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerRoomId != null">
+				#{ownerRoomId,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureUrl != null">
+				#{pictureUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="inOut != null">
+				#{inOut,jdbcType=TINYINT},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=VARCHAR},
+			</if>
+			<if test="dueTime != null">
+				#{dueTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.VisitorInOutRecord">
+		update record_visitor
+		<set>
+			<if test="sysId != null">
+				sys_id = #{sysId,jdbcType=INTEGER},
+			</if>
+			<if test="occuTime != null">
+				pass_time = #{passTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="visitorName != null">
+				visitor_name = #{visitorName,jdbcType=VARCHAR},
+			</if>
+			<if test="visitorId != null">
+				visitor_id = #{visitorId,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				device_id = #{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="openType != null">
+				open_type = #{openType,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerName != null">
+				owner_name = #{ownerName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerRoomId != null">
+				owner_room_id = #{ownerRoomId,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureUrl != null">
+				picture_url = #{pictureUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="inOut != null">
+				in_out = #{inOut,jdbcType=TINYINT},
+			</if>
+			<if test="position != null">
+				position = #{position,jdbcType=VARCHAR},
+			</if>
+			<if test="dueTime != null">
+				due_time = #{dueTime,jdbcType=DATE},
+			</if>
+		</set>
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateByPrimaryKey"
+		parameterType="com.hxts.unicorn.modules.resident.model.VisitorInOutRecord">
+		update record_visitor
+		set
+		sys_id = #{sysId,jdbcType=VARCHAR},
+		pass_time = #{passTime,jdbcType=TIMESTAMP},
+		visitor_name = #{visitorName,jdbcType=VARCHAR},
+		visitor_id = #{visitorId,jdbcType=VARCHAR},
+		device_id = #{deviceId,jdbcType=VARCHAR},
+		open_type = #{openType,jdbcType=VARCHAR},
+		owner_name = #{ownerName,jdbcType=VARCHAR},
+		owner_room_id = #{ownerRoomId,jdbcType=VARCHAR},
+		picture_url = #{pictureUrl,jdbcType=VARCHAR},
+		in_out = #{inOut,jdbcType=TINYINT},
+		position = #{position,jdbcType=VARCHAR}
+		due_time = #{dueTime,jdbcType=DATE},
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteByPrimaryKeys">
+		delete from record_visitor
+		where record_id in
+		<foreach collection="list" item="recordId" open="(" separator=","
+			close=")">
+			#{recordId}
+		</foreach>
+	</delete>
+</mapper>

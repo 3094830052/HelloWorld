@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.hxts.unicorn.modules.resident.dao.BuildingDataDictionaryItemDao">
+	<resultMap id="BaseResultMap"
+		type="com.hxts.unicorn.platform.interfaces.DataDictionaryItem">
+		<result column="data_type" jdbcType="VARCHAR" property="dataType" />
+		<result column="data_code" jdbcType="VARCHAR" property="dataCode" />
+		<result column="data_name" jdbcType="VARCHAR" property="dataName" />
+	</resultMap>
+	<insert id="insert"
+		parameterType="com.hxts.unicorn.platform.interfaces.DataDictionaryItem">
+		insert into building_data_dictionary_item (data_type,
+		data_code,
+		data_name
+		)
+		values (#{dataType,jdbcType=VARCHAR},
+		#{dataCode,jdbcType=VARCHAR},
+		#{dataName,jdbcType=VARCHAR}
+		)
+	</insert>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		data_type,data_code,data_name from
+		building_data_dictionary_item ORDER
+		BY data_type , data_code ASC
+	</select>
+	<select id="selectByDataType" resultMap="BaseResultMap">
+		select
+		data_type,data_code,data_name from
+		building_data_dictionary_item where
+		data_type =
+		#{dataType,jdbcType=VARCHAR} ORDER BY data_code ASC
+	</select>
+	<delete id="delete" parameterType="string">
+		delete from
+		building_data_dictionary_item where
+		data_type =
+		#{dataType,jdbcType=VARCHAR} and data_code =
+		#{dataCode,jdbcType=VARCHAR}
+	</delete>
+</mapper>

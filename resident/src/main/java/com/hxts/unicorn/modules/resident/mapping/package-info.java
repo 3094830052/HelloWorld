@@ -1,0 +1,1 @@
+package com.hxts.unicorn.modules.resident.mapping;

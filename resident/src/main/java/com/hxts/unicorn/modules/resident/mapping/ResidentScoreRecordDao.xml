@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.ResidentScoreRecordDao">
+	<resultMap id="BaseResultMap"
+		type="com.hxts.unicorn.modules.resident.model.ResidentScoreRecord">
+		<id column="resident_score_record_id" jdbcType="INTEGER"
+			property="residentScoreRecordId" />
+		<result column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+		<result column="open_id" jdbcType="VARCHAR" property="openId" />
+		<result column="score" jdbcType="INTEGER" property="score" />
+		<result column="record_id" jdbcType="INTEGER" property="recordId" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="score_details" jdbcType="VARCHAR" property="scoreDetails" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		resident_score_record_id, resident_base_id,
+		open_id,score,record_id,type,score_details
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_score_record_info
+		where resident_score_record_id =
+		#{residentScoreRecordId,jdbcType=INTEGER}
+	</select>
+	<select id="selectByResidentBaseId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_score_record_info
+		where resident_base_id =
+		#{residentBaseId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		resident_score_record_info
+		where resident_score_record_id =
+		#{residentScoreRecordId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentScoreRecord">
+		insert into resident_score_record_info
+		(resident_score_record_id,
+		resident_base_id,
+		open_id,
+		score,record_id,type,score_details)
+		values
+		(#{residentScoreRecordId,jdbcType=INTEGER},
+		#{residentBaseId,jdbcType=INTEGER},
+		#{openId,jdbcType=VARCHAR},
+		#{score,jdbcType=INTEGER},#{recordId,jdbcType=INTEGER},#{type,jdbcType=VARCHAR},#{scoreDetails,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentScoreRecord">
+		insert into resident_score_record_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="residentScoreRecordId != null">
+				resident_score_record_id,
+			</if>
+			<if test="residentBaseId != null">
+				resident_base_id,
+			</if>
+			<if test="openId != null">
+				open_id,
+			</if>
+			<if test="score != null">
+				score,
+			</if>
+			<if test="recordId!= null">
+				record_id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="scoreDetails != null">
+				score_details,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="residentScoreRecordId != null">
+				#{residentScoreRecordId,jdbcType=INTEGER},
+			</if>
+			<if test="residentBaseId != null">
+				#{residentBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="openId != null">
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=INTEGER},
+			</if>
+			<if test="recordId!= null">
+				#{recordId,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="scoreDetails != null">
+				#{scoreDetails,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentScoreRecord">
+		update resident_score_record_info
+		<set>
+			<if test="residentBaseId != null">
+				resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="openId != null">
+				open_id = #{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=INTEGER},
+			</if>
+			<if test="recordId!= null">
+				#{recordId,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="scoreDetails != null">
+				score_details = #{scoreDetails,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where resident_score_record_id =
+		#{residentScoreRecordId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentScoreRecord">
+		update resident_score_record_info
+		set resident_base_id =
+		#{residentBaseId,jdbcType=INTEGER},
+		open_id =
+		#{openId,jdbcType=VARCHAR},
+		score=
+		#{score,jdbcType=INTEGER},
+		record_id=
+		#{recordId,jdbcType=INTEGER},
+		type=
+		#{type,jdbcType=VARCHAR},
+		score_details =
+		#{scoreDetails,jdbcType=VARCHAR}
+		where
+		resident_score_record_id =
+		#{residentScoreRecordId,jdbcType=INTEGER}
+	</update>
+</mapper>

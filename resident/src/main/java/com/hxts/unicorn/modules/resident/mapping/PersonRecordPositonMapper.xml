@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.PersonRecordPositionMapper">
+	
+	<update id="dropTableAboutPositon" parameterType="string">
+		DROP TABLE IF EXISTS ${table_name};
+	</update>
+	
+	<update id="creatTableAboutPositon" parameterType="string">
+		CREATE TABLE ${table_name} (
+		`position` varchar(110) NOT NULL,
+		UNIQUE KEY `position` (`position`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	</update>
+	
+	<select id="checkExistence" parameterType="string" resultType="string">
+		select position from personinout_guard_location where position = #{position,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="addNewPositions" parameterType="java.util.List">
+		insert into personinout_guard_location(position) values
+		<foreach collection="list" item="position" index="index"
+			separator=",">
+			(#{position,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+	
+	<insert id="addNewPosition" parameterType="string">
+		insert into personinout_guard_location(position) values(#{position,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectSimilarPosition" parameterType="string" resultType="string">
+		SELECT POSITION FROM personinout_guard_location WHERE POSITION LIKE '%${position}%'
+	</select>
+	
+</mapper>

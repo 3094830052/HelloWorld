@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.CarInOutRecordMapper">
+	<resultMap id="BaseResultMap"
+		type="com.hxts.unicorn.modules.resident.model.CarInOutRecord">
+		<id column="record_id" property="recordId" jdbcType="INTEGER" />
+		<result column="sys_id" property="sysId" jdbcType="INTEGER" />
+		<result column="pass_time" property="passTime" jdbcType="TIMESTAMP" />
+		<result column="car_number" property="carNumber" jdbcType="VARCHAR" />
+		<result column="in_out" property="inOut" jdbcType="BIT" />
+		<result column="position" property="position" jdbcType="VARCHAR" />
+		<result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+		<result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+		<result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+		<result column="owner_tel" property="ownerTel" jdbcType="VARCHAR" />
+		<result column="out_time" property="outTime" jdbcType="TIMESTAMP" />
+		<result column="due_time" property="dueTime" jdbcType="DATE" />
+	</resultMap>
+	<resultMap id="BaseInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.CarInOutRecordInfo">
+		<id column="record_id" property="recordId" jdbcType="INTEGER" />
+		<result column="sys_id" property="sysId" jdbcType="INTEGER" />
+		<result column="pass_time" property="passTime" jdbcType="TIMESTAMP" />
+		<result column="car_number" property="carNumber" jdbcType="VARCHAR" />
+		<result column="in_out" property="inOut" jdbcType="BIT" />
+		<result column="position" property="position" jdbcType="VARCHAR" />
+		<result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+		<result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+		<result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+		<result column="owner_tel" property="ownerTel" jdbcType="VARCHAR" />
+		<result column="out_time" property="outTime" jdbcType="TIMESTAMP" />
+		<result column="due_time" property="dueTime" jdbcType="DATE" />
+	</resultMap>
+   
+	<sql id="Base_Column_List">
+		record_id, sys_id,pass_time,car_number,in_out,
+		position,device_id,picture_url,owner_name,owner_tel,out_time,due_time
+	</sql>
+    
+	<insert id="insertSelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.CarInOutRecord">
+		insert into record_carinout
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="recordId != null">
+				record_id,
+			</if>
+			<if test="sysId != null">
+				sys_id,
+			</if>
+			<if test="passTime != null">
+				pass_time,
+			</if>
+			<if test="carNumber != null">
+				car_number,
+			</if>
+			<if test="inOut != null">
+				in_out,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+			<if test="deviceId != null">
+				device_id,
+			</if>
+			<if test="pictureUrl != null">
+				picture_url,
+			</if>
+			<if test="ownerName != null">
+				owner_name,
+			</if>
+			<if test="ownerTel != null">
+				owner_tel,
+			</if>
+			<if test="outTime != null">
+				out_time,
+			</if>
+			<if test="dueTime != null">
+				due_time,
+			</if>
+			
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="recordId != null">
+				#{recordId,jdbcType=INTEGER},
+			</if>
+			<if test="sysId != null">
+				#{sysId,jdbcType=INTEGER},
+			</if>
+			<if test="passTime != null">
+				#{passTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="carNumber != null">
+				#{carNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="inOut != null">
+				#{inOut,jdbcType=BIT},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				#{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureUrl != null">
+				#{pictureUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerName != null">
+				#{ownerName,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerTel != null">
+				#{ownerTel,jdbcType=VARCHAR},
+			</if>
+			<if test="outTime != null">
+				#{outTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dueTime != null">
+				#{dueTime,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from record_carinout
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</select>
+		<select id="selectSimilarPosition" parameterType="string" resultType="string">
+		SELECT POSITION FROM record_carinout WHERE POSITION LIKE '%${position}%'
+	</select>
+	<select id="selectByCarNumber" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from record_carinout
+		where car_number = #{carNumber,jdbcType=VARCHAR}
+	</select>
+ <select id=""></select>
+	<select id="selectByVariableConditions"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.CarInOutConditionModel"
+		resultMap="BaseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from record_carinout
+		<where>
+			pass_time between #{startTime} and #{endTime}
+			<if test="carNumber != null">
+				and car_number = #{carNumber,jdbcType=VARCHAR}
+			</if>
+			<if test="inOut != null">
+				and in_out = #{inOut,jdbcType=BIT}
+			</if>
+			<!-- <if test="position != null">
+				and position = #{position,jdbcType=VARCHAR}
+			</if> -->
+			<if test="ownerName != null">
+				and owner_name = #{ownerName,jdbcType=VARCHAR}
+			</if>
+			<if test="ownerTel != null">
+				and owner_tel = #{ownerTel,jdbcType=VARCHAR}
+			</if>
+			and position like CONCAT('%',#{position,jdbcType=VARCHAR},'%')
+		</where>
+	</select>
+    
+	<select id="selectOverdueRecord" parameterType="date" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from record_carinout where due_time <![CDATA[<]]>
+		#{date}
+	</select>
+	<!--<select id="selectByPassTime" resultMap="BaseResultMap">
+	 select
+	 <include refid="Base_Column_List" />
+	 from record_carinout where car_number = #{carNumber,jdbcType=VARCHAR}
+	     order by pass_time DESC limit 1
+	 </select>  -->
+	<insert id="transferToHistoryBase" parameterType="java.util.List">
+		<!-- useGeneratedKeys="true" -->
+		<!-- <selectKey resultType="long" keyProperty="id"> -->
+		<!-- SELECT LAST_INSERT_ID() -->
+		<!-- </selectKey> -->
+		insert into record_carinout_overdue (record_id, sys_id,pass_time,
+		car_number,in_out,position,device_id,picture_url,
+		owner_name,owner_tel,out_time,due_time)
+		values
+		<foreach collection="list" item="record" index="index"
+			separator="," close=";">
+			(#{record.recordId,jdbcType=INTEGER},
+			#{record.sysId,jdbcType=INTEGER},
+			#{record.passTime,jdbcType=TIMESTAMP},
+			#{record.carNumber,jdbcType=VARCHAR},
+			#{record.inOut,jdbcType=BIT},
+			#{record.position,jdbcType=VARCHAR},
+			#{record.deviceId,jdbcType=VARCHAR},
+			#{record.pictureUrl,jdbcType=VARCHAR},
+			#{record.ownerName,jdbcType=VARCHAR},
+			#{record.ownerTel,jdbcType=VARCHAR},
+			#{record.outTime,jdbcType=TIMESTAMP},
+			#{record.dueTime,jdbcType=DATE}
+			)
+		</foreach>
+	</insert>
+
+	<delete id="deleteByPrimaryKeys">
+		delete from record_carinout
+		where record_id in
+		<foreach collection="list" item="recordId" open="(" separator=","
+			close=")">
+			#{recordId}
+		</foreach>
+	</delete>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		record_carinout
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.CarInOutRecord">
+		update record_carinout
+		<set>
+			<if test="sysId != null">
+				sys_id = #{sysId,jdbcType=INTEGER},
+			</if>
+			<if test="passTime != null">
+				pass_time = #{passTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="carNumber != null">
+				car_number = #{carNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="inOut != null">
+				in_out = #{inOut,jdbcType=BIT},
+			</if>
+			<if test="position != null">
+				position = #{position,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				device_id = #{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureUrl != null">
+				picture_url = #{pictureUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerName != null">
+				owner_name = #{ownerName,jdbcType=VARCHAR},
+			</if>
+				<if test="ownerTel != null">
+				owner_tel = #{ownerTel,jdbcType=VARCHAR},
+			</if>
+			<if test="outTime != null">
+				out_time = #{outTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dueTime != null">
+				due_time = #{dueTime,jdbcType=DATE},
+			</if>
+		</set>
+		where record_id = #{recordId,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKey"
+		parameterType="com.hxts.unicorn.modules.resident.model.CarInOutRecord">
+		update record_carinout
+		set sys_id =
+		#{sysId,jdbcType=INTEGER},
+		pass_time =
+		#{passTime,jdbcType=TIMESTAMP},
+		car_number = #{carNumber,jdbcType=VARCHAR},
+		in_out = #{inOut,jdbcType=BIT},
+		position =
+		#{position,jdbcType=VARCHAR},
+		device_id =
+		#{deviceId,jdbcType=VARCHAR},
+		picture_url =
+		#{pictureUrl,jdbcType=VARCHAR},
+		owner_name =
+		#{ownerName,jdbcType=VARCHAR},
+		owner_tel =
+		#{ownerTel,jdbcType=VARCHAR},
+		out_time =
+		#{outTime,jdbcType=TIMESTAMP},
+		due_time = #{dueTime,jdbcType=DATE}
+		where
+		record_id = #{recordId,jdbcType=INTEGER}
+	</update>
+	<select id="selectByPassTime" resultMap="BaseResultMap" parameterType="map">
+	 SELECT * FROM record_carinout where car_number = #{carNumber,jdbcType=VARCHAR} 
+	 and out_time is null ORDER BY pass_time DESC LIMIT 1 
+	 </select>
+</mapper>

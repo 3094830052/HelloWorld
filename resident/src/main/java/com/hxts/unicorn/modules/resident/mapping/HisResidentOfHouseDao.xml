@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.HisResidentOfHouseDao">
+	<resultMap id="BaseHrohResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.HisResidentOfHouseInfo">
+		<id column="his_resident_of_house_id" jdbcType="BIGINT"
+			property="hisResidentOfHouseId" />
+		<result column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="resident_base_id" jdbcType="BIGINT" property="residentBaseId" />
+		<result column="resident_type" jdbcType="VARCHAR" property="residentType" />
+		<result column="rent_type" jdbcType="VARCHAR" property="rentType" />
+		<result column="hidden_danger" jdbcType="VARCHAR" property="hiddenDanger" />
+		<result column="out_of_time" jdbcType="TIMESTAMP" property="outOfTime" />
+		<result column="move_in_time" jdbcType="TIMESTAMP" property="moveInTime" />
+	</resultMap>
+	<resultMap id="HrohAndHouseInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.HisResidentOfHouseInfo">
+		<id column="his_resident_of_house_id" jdbcType="BIGINT"
+			property="hisResidentOfHouseId" />
+		<result column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="resident_base_id" jdbcType="BIGINT" property="residentBaseId" />
+		<result column="resident_type" jdbcType="VARCHAR" property="residentType" />
+		<result column="rent_type" jdbcType="VARCHAR" property="rentType" />
+		<result column="out_of_time" jdbcType="TIMESTAMP" property="outOfTime" />
+		<result column="move_in_time" jdbcType="TIMESTAMP" property="moveInTime" />
+		<association property="houseInfo" column="house_id"
+			javaType="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+			<id column="house_id" jdbcType="BIGINT" property="houseId" />
+			<result column="unit_number" jdbcType="INTEGER" property="unitNumber" />
+			<result column="floor_number" jdbcType="INTEGER" property="floorNumber" />
+			<result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+			<result column="house_type" jdbcType="VARCHAR" property="houseType" />
+		</association>
+	</resultMap>
+	<resultMap id="HrohAndResidentInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.HisResidentOfHouseInfo">
+		<id column="his_resident_of_house_id" jdbcType="BIGINT"
+			property="hisResidentOfHouseId" />
+		<result column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="resident_base_id" jdbcType="BIGINT" property="residentBaseId" />
+		<result column="resident_type" jdbcType="VARCHAR" property="residentType" />
+		<result column="rent_type" jdbcType="VARCHAR" property="rentType" />
+		<result column="hidden_danger" jdbcType="VARCHAR" property="hiddenDanger" />
+		<result column="out_of_time" jdbcType="TIMESTAMP" property="outOfTime" />
+		<result column="move_in_time" jdbcType="TIMESTAMP" property="moveInTime" />
+		<association property="residentBaseInfo" column="resident_base_id"
+			javaType="com.hxts.unicorn.platform.interfaces.biz.ResidentBaseInfo">
+			<id column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+			<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+			<result column="name" jdbcType="VARCHAR" property="name" />
+			<result column="birth_date" jdbcType="VARCHAR" property="birthDate" />
+			<result column="sex" jdbcType="VARCHAR" property="sex" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		his_resident_of_house_id, house_id, resident_base_id,
+		resident_type, rent_type, hidden_danger, out_of_time, move_in_time
+	</sql>
+	<delete id="deleteHrohById" parameterType="java.lang.Long">
+		delete from
+		his_resident_of_house
+		where his_resident_of_house_id =
+		#{hisResidentOfHouseId,jdbcType=BIGINT}
+	</delete>
+	<insert id="addHisResidentOfHouse" useGeneratedKeys="true"
+		keyProperty="hisResidentOfHouseId"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.HisResidentOfHouseInfo">
+		insert into his_resident_of_house
+		(house_id,
+		resident_base_id,
+		resident_type,
+		rent_type, hidden_danger, out_of_time,
+		move_in_time)
+		values
+		(#{houseId,jdbcType=BIGINT},
+		#{residentBaseId,jdbcType=BIGINT},
+		#{residentType,jdbcType=VARCHAR},
+		#{rentType,jdbcType=VARCHAR},
+		#{hiddenDanger,jdbcType=VARCHAR},
+		#{outOfTime,jdbcType=TIMESTAMP},
+		#{moveInTime,jdbcType=TIMESTAMP})
+	</insert>
+	<update id="updateHisResidentOfHouse"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.HisResidentOfHouseInfo">
+		update his_resident_of_house
+		<set>
+			<if test="houseId != null">
+				house_id = #{houseId,jdbcType=BIGINT},
+			</if>
+			<if test="residentBaseId != null">
+				resident_base_id = #{residentBaseId,jdbcType=BIGINT},
+			</if>
+			<if test="residentType != null">
+				resident_type = #{residentType,jdbcType=VARCHAR},
+			</if>
+			<if test="rentType != null">
+				rent_type = #{rentType,jdbcType=VARCHAR},
+			</if>
+			<if test="hiddenDanger != null">
+				hidden_danger = #{hiddenDanger,jdbcType=VARCHAR},
+			</if>
+			<if test="outOfTime != null">
+				input_time = #{outOfTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="moveInTime != null">
+				move_in_time = #{moveInTime,jdbcType=TIMESTAMP}
+			</if>
+		</set>
+		where his_resident_of_house_id =
+		#{hisResidentOfHouseId,jdbcType=BIGINT}
+	</update>
+	<select id="queryBaseHrohById" parameterType="java.lang.Long"
+		resultMap="BaseHrohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from his_resident_of_house where
+		his_resident_of_house_id =
+		#{hisResidentOfHouseId,jdbcType=BIGINT}
+	</select>
+	<select id="queryBaseHrohByHouseId" resultMap="BaseHrohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		his_resident_of_house where
+		house_id = #{houseId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryHrohByHouseId" resultMap="HrohAndResidentInfoResultMap">
+		select
+		r.his_resident_of_house_id, r.house_id, r.resident_base_id,
+		r.resident_type, r.rent_type,
+		r.hidden_danger, r.out_of_time,
+		r.move_in_time,
+		i.resident_base_id, i.id_no, i.name, i.sex,
+		i.birth_date
+		from
+		his_resident_of_house r,
+		resident_base_info i where
+		r.resident_base_id =
+		i.resident_base_id
+		and
+		r.house_id =
+		#{houseId,jdbcType=BIGINT}
+	</select>
+</mapper>

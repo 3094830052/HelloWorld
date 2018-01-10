@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.FamilyRelationDao" >
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.FamilyRelation" >
+    <id column="family_relation_id" property="familyRelationId" jdbcType="INTEGER" />
+    <result column="self_id" property="selfId" jdbcType="INTEGER" />
+    <result column="other_id" property="otherId" jdbcType="INTEGER" />
+    <result column="relation" property="relation" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="DtoResultMap" type="com.hxts.unicorn.modules.resident.dto.FamilyRelationDto" >
+    <result column="family_relation_id" property="familyRelationId" jdbcType="INTEGER" />
+    <result column="self_id" property="selfId" jdbcType="INTEGER" />
+    <result column="other_id" property="otherId" jdbcType="INTEGER" />
+    <result column="relation" property="relation" jdbcType="VARCHAR" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birth_date" jdbcType="VARCHAR" property="birthDate" />
+    <result column="ethnicity" jdbcType="VARCHAR" property="ethnicity" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    family_relation_id, self_id, other_id, relation
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from family_relation_info
+    where family_relation_id = #{familyRelationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from family_relation_info
+    where family_relation_id = #{familyRelationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.FamilyRelation" >
+    insert into family_relation_info (family_relation_id, self_id, other_id, 
+      relation)
+    values (#{familyRelationId,jdbcType=INTEGER}, #{selfId,jdbcType=INTEGER}, #{otherId,jdbcType=INTEGER}, 
+      #{relation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.FamilyRelation" >
+    insert into family_relation_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="familyRelationId != null" >
+        family_relation_id,
+      </if>
+      <if test="selfId != null" >
+        self_id,
+      </if>
+      <if test="otherId != null" >
+        other_id,
+      </if>
+      <if test="relation != null" >
+        relation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="familyRelationId != null" >
+        #{familyRelationId,jdbcType=INTEGER},
+      </if>
+      <if test="selfId != null" >
+        #{selfId,jdbcType=INTEGER},
+      </if>
+      <if test="otherId != null" >
+        #{otherId,jdbcType=INTEGER},
+      </if>
+      <if test="relation != null" >
+        #{relation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.FamilyRelation" >
+    update family_relation_info
+    <set >
+      <if test="selfId != null" >
+        self_id = #{selfId,jdbcType=INTEGER},
+      </if>
+      <if test="otherId != null" >
+        other_id = #{otherId,jdbcType=INTEGER},
+      </if>
+      <if test="relation != null" >
+        relation = #{relation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where family_relation_id = #{familyRelationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.FamilyRelation" >
+    update family_relation_info
+    set self_id = #{selfId,jdbcType=INTEGER},
+      other_id = #{otherId,jdbcType=INTEGER},
+      relation = #{relation,jdbcType=VARCHAR}
+    where family_relation_id = #{familyRelationId,jdbcType=INTEGER}
+  </update>
+  <select id="getFamilyRelationBySelfId" resultMap="DtoResultMap">
+  select f.*,r.name,r.id_no,r.sex,r.ethnicity,r.birth_date,r.contact 
+  from family_relation_info f left join resident_base_info r 
+  on f.other_id=r.resident_base_id 
+  where f.self_id=#{selfId,jdbcType=INTEGER}
+  </select>
+  <select id="getFamilyRelationByIdNo" parameterType="String" resultType="com.hxts.unicorn.modules.resident.dto.FamilyRelationDto"> 
+  select 0 familyRelationId,rb.resident_base_id selfId, rb.resident_base_id otherId,0 relation,rb.name name,rb.id_no idNo,rb.sex sex,rb.ethnicity ethnicity,rb.birth_date birthDate,rb.contact contact
+  from resident_base_info rb
+  where rb.id_no = #{idNo,jdbcType=VARCHAR}
+  union
+  select f.family_relation_id familyRelationId,f.self_id selfId,f.other_id otherId,f.relation relation,r.name name,r.id_no idNo,r.sex sex,r.ethnicity ethnicity,r.birth_date birthDate,r.contact contact
+  from family_relation_info f left join resident_base_info r on f.other_id=r.resident_base_id 
+  left join resident_base_info rs on f.self_id=rs.resident_base_id
+  where rs.id_no = #{idNo,jdbcType=VARCHAR}
+  order by relation
+  </select>
+</mapper>

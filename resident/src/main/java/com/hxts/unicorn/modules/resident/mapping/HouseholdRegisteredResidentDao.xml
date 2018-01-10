@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.HouseholdRegisteredResidentDao" >
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.HouseholdRegisteredResident" >
+    <id column="household_id" property="householdId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="uniformity_flag" property="uniformityFlag" jdbcType="VARCHAR" />
+    <result column="household_no" property="householdNo" jdbcType="VARCHAR" />
+    <result column="householder_idcard_no" property="householderIdcardNo" jdbcType="VARCHAR" />
+    <result column="householder_name" property="householderName" jdbcType="VARCHAR" />
+    <result column="householder_relationship" property="householderRelationship" jdbcType="VARCHAR" />
+    <result column="householder_contact" property="householderContact" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="HouseholdInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.HouseholdResidentInfo" >
+    <id column="household_id" property="householdId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="uniformity_flag" property="uniformityFlag" jdbcType="VARCHAR" />
+    <result column="household_no" property="householdNo" jdbcType="VARCHAR" />
+    <result column="householder_idcard_no" property="householderIdcardNo" jdbcType="VARCHAR" />
+    <result column="householder_name" property="householderName" jdbcType="VARCHAR" />
+    <result column="householder_relationship" property="householderRelationship" jdbcType="VARCHAR" />
+    <result column="householder_contact" property="householderContact" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="DtoResultMap" type="com.hxts.unicorn.modules.resident.dto.HouseholdRegisteredResidentDto" >
+    <id column="household_id" property="householdId" jdbcType="INTEGER" />  
+    <result column="uniformity_flag" property="uniformityFlag" jdbcType="VARCHAR" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="integrity" jdbcType="DECIMAL" property="integrity" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    household_id, resident_base_id, uniformity_flag, household_no, householder_idcard_no, householder_name, 
+    householder_relationship, householder_contact, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="HouseholdInfoResultMap" parameterType="INTEGER" >
+    select 
+    <include refid="Base_Column_List" />
+    from household_registered_resident_info
+    where household_id = #{householdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from household_registered_resident_info
+    where household_id = #{householdId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.HouseholdRegisteredResident" >
+    insert into household_registered_resident_info (household_id, resident_base_id, uniformity_flag, 
+      household_no, householder_idcard_no, householder_name, 
+      householder_relationship, householder_contact, 
+      create_user_id)
+    values (#{householdId,jdbcType=INTEGER}, #{residentBaseId,jdbcType=INTEGER}, #{uniformityFlag,jdbcType=VARCHAR}, 
+      #{householdNo,jdbcType=VARCHAR}, #{householderIdcardNo,jdbcType=VARCHAR}, #{householderName,jdbcType=VARCHAR}, 
+      #{householderRelationship,jdbcType=VARCHAR}, #{householderContact,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.HouseholdRegisteredResident" >
+    insert into household_registered_resident_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="householdId != null" >
+        household_id,
+      </if>
+      <if test="residentBaseId != null" >
+        resident_base_id,
+      </if>
+      <if test="uniformityFlag != null" >
+        uniformity_flag,
+      </if>
+      <if test="householdNo != null" >
+        household_no,
+      </if>
+      <if test="householderIdcardNo != null" >
+        householder_idcard_no,
+      </if>
+      <if test="householderName != null" >
+        householder_name,
+      </if>
+      <if test="householderRelationship != null" >
+        householder_relationship,
+      </if>
+      <if test="householderContact != null" >
+        householder_contact,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="householdId != null" >
+        #{householdId,jdbcType=INTEGER},
+      </if>
+      <if test="residentBaseId != null" >
+        #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="uniformityFlag != null" >
+        #{uniformityFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="householdNo != null" >
+        #{householdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="householderIdcardNo != null" >
+        #{householderIdcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="householderName != null" >
+        #{householderName,jdbcType=VARCHAR},
+      </if>
+      <if test="householderRelationship != null" >
+        #{householderRelationship,jdbcType=VARCHAR},
+      </if>
+      <if test="householderContact != null" >
+        #{householderContact,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.HouseholdRegisteredResident" >
+    update household_registered_resident_info
+    <set >
+      <if test="residentBaseId != null" >
+        resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="uniformityFlag != null" >
+        uniformity_flag = #{uniformityFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="householdNo != null" >
+        household_no = #{householdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="householderIdcardNo != null" >
+        householder_idcard_no = #{householderIdcardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="householderName != null" >
+        householder_name = #{householderName,jdbcType=VARCHAR},
+      </if>
+      <if test="householderRelationship != null" >
+        householder_relationship = #{householderRelationship,jdbcType=VARCHAR},
+      </if>
+      <if test="householderContact != null" >
+        householder_contact = #{householderContact,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where household_id = #{householdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.HouseholdRegisteredResident" >
+    update household_registered_resident_info
+    set resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      uniformity_flag = #{uniformityFlag,jdbcType=VARCHAR},
+      household_no = #{householdNo,jdbcType=VARCHAR},
+      householder_idcard_no = #{householderIdcardNo,jdbcType=VARCHAR},
+      householder_name = #{householderName,jdbcType=VARCHAR},
+      householder_relationship = #{householderRelationship,jdbcType=VARCHAR},
+      householder_contact = #{householderContact,jdbcType=VARCHAR}
+    where household_id = #{householdId,jdbcType=INTEGER}
+  </update>
+  
+    <select id="selectByKeyWord" resultMap="HouseholdInfoResultMap" parameterType="String">
+		select 
+		h.household_id, h.resident_base_id, h.uniformity_flag, 
+        h.household_no, h.householder_idcard_no, h.householder_name, 
+        h.householder_relationship, h.householder_contact, h.create_user_id
+		 from household_registered_resident_info h 
+		inner join resident_base_info r on h.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="householdNo != null" >
+        and h.household_no = #{householdNo,jdbcType=VARCHAR}
+        </if>
+        <if test="idNo != null" >
+        and r.id_no = #{idNo,jdbcType=VARCHAR}
+        </if>
+	</select>
+	
+  <select id="queryHouseholdRegisterListByKeywords" resultMap="DtoResultMap">
+		select r.resident_base_id,r.name,r.sex,r.id_no,r.contact,r.integrity,h.household_id,h.uniformity_flag from household_registered_resident_info h 
+		inner join resident_base_info r on h.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="uniformityFlag != null" >
+        and h.uniformity_flag = #{uniformityFlag,jdbcType=VARCHAR}
+        </if>
+        <if test="integrity != null">
+        and r.integrity &lt;= #{integrity,jdbcType=DECIMAL}
+      	</if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	
+	<select id="getDegreeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select name,count(*) total from
+		(
+			select 
+			case when degree = 1 then '研究生'
+			when degree = 2 then '本科'
+			when degree = 3 then '专科'
+			when degree = 4 then '中专'
+			when degree = 6 then '高中'
+			when degree = 7 then '初中'
+			when degree = 8 then '小学'
+			else '其它' end name
+			from 
+			(
+			select left(educational_degree,1) degree from resident_base_info r inner join household_registered_resident_info h on r.resident_base_id = h.resident_base_id
+			where 1=1
+			<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		    </if>
+			) t 
+		) t1 group by name order by name 
+	</select>
+	
+	<select id="getAgeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select name,count(*) total from
+		(
+		select 
+		case when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 7 YEAR),'%Y%m%d') then '0~6岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 13 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 7 YEAR),'%Y%m%d') then '7~12岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 19 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 13 YEAR),'%Y%m%d') then '13~18岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 24 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 19 YEAR),'%Y%m%d') then '19~23岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 31 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 24 YEAR),'%Y%m%d') then '24~30岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 41 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 31 YEAR),'%Y%m%d') then '31~40岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 51 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 41 YEAR),'%Y%m%d') then '41~50岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 61 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 51 YEAR),'%Y%m%d') then '51~60岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 71 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 61 YEAR),'%Y%m%d') then '61~70岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 81 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 71 YEAR),'%Y%m%d') then '71~80岁'
+		when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 91 YEAR),'%Y%m%d') and birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 81 YEAR),'%Y%m%d') then '81~90岁'
+		when birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 91 YEAR),'%Y%m%d') then '91岁及以上'
+		else '其它' end name
+		from resident_base_info r inner join household_registered_resident_info h on r.resident_base_id = h.resident_base_id
+		where 1=1
+			<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		    </if>
+		) t group by name
+	</select>
+</mapper>

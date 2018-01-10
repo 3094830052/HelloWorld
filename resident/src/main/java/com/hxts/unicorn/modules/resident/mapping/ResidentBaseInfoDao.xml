@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.ResidentBaseInfoDao">
+	<resultMap id="BaseResultMap"
+		type="com.hxts.unicorn.modules.resident.model.ResidentBase">
+		<id column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+		<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="former_name" jdbcType="VARCHAR" property="formerName" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="birth_date" jdbcType="VARCHAR" property="birthDate" />
+		<result column="ethnicity" jdbcType="VARCHAR" property="ethnicity" />
+		<result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+		<result column="marital_status" jdbcType="VARCHAR" property="maritalStatus" />
+		<result column="political_status" jdbcType="VARCHAR" property="politicalStatus" />
+		<result column="educational_degree" jdbcType="VARCHAR"
+			property="educationalDegree" />
+		<result column="religious_belief" jdbcType="VARCHAR" property="religiousBelief" />
+		<result column="occupation_category" jdbcType="VARCHAR"
+			property="occupationCategory" />
+		<result column="occupation" jdbcType="VARCHAR" property="occupation" />
+		<result column="employer" jdbcType="VARCHAR" property="employer" />
+		<result column="contact" jdbcType="VARCHAR" property="contact" />
+		<result column="registered_residence" jdbcType="VARCHAR"
+			property="registeredResidence" />
+		<result column="registered_residence_address" jdbcType="VARCHAR"
+			property="registeredResidenceAddress" />
+		<result column="current_residence" jdbcType="VARCHAR" property="currentResidence" />
+		<result column="current_residence_address" jdbcType="VARCHAR"
+			property="currentResidenceAddress" />
+		<result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+		<result column="integrity" jdbcType="DECIMAL" property="integrity" />
+		<result column="picture" jdbcType="VARCHAR" property="picture" />
+	</resultMap>
+	<resultMap id="ResidentBaseInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.ResidentBaseInfo">
+		<id column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+		<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="former_name" jdbcType="VARCHAR" property="formerName" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="birth_date" jdbcType="VARCHAR" property="birthDate" />
+		<result column="ethnicity" jdbcType="VARCHAR" property="ethnicity" />
+		<result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+		<result column="marital_status" jdbcType="VARCHAR" property="maritalStatus" />
+		<result column="political_status" jdbcType="VARCHAR" property="politicalStatus" />
+		<result column="educational_degree" jdbcType="VARCHAR"
+			property="educationalDegree" />
+		<result column="religious_belief" jdbcType="VARCHAR" property="religiousBelief" />
+		<result column="occupation_category" jdbcType="VARCHAR"
+			property="occupationCategory" />
+		<result column="occupation" jdbcType="VARCHAR" property="occupation" />
+		<result column="employer" jdbcType="VARCHAR" property="employer" />
+		<result column="contact" jdbcType="VARCHAR" property="contact" />
+		<result column="registered_residence" jdbcType="VARCHAR"
+			property="registeredResidence" />
+		<result column="registered_residence_address" jdbcType="VARCHAR"
+			property="registeredResidenceAddress" />
+		<result column="current_residence" jdbcType="VARCHAR" property="currentResidence" />
+		<result column="current_residence_address" jdbcType="VARCHAR"
+			property="currentResidenceAddress" />
+		<result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+		<result column="integrity" jdbcType="DECIMAL" property="integrity" />
+		<result column="picture" jdbcType="VARCHAR" property="picture" />
+	</resultMap>
+	<resultMap id="labelIdsMap"
+		type="com.hxts.unicorn.modules.resident.model.ResidentLabels">
+		<result column="resident_base_id" property="residentBaseId"
+			jdbcType="INTEGER" />
+		<result column="household_id" property="householdId" jdbcType="INTEGER" />
+		<result column="floating_id" property="floatingId" jdbcType="INTEGER" />
+		<result column="left_behind_id" property="leftBehindId"
+			jdbcType="INTEGER" />
+		<result column="foreigner_id" property="foreignerId" jdbcType="INTEGER" />
+		<result column="subsist_allowance_id" property="subsistAllowanceId"
+			jdbcType="INTEGER" />
+		<result column="living_alone_id" property="livingAloneId"
+			jdbcType="INTEGER" />
+		<result column="disabled_people_id" property="disabledPeopleId"
+			jdbcType="INTEGER" />
+		<result column="key_teenager_id" property="keyTeenagerId"
+			jdbcType="INTEGER" />
+		<result column="drug_addict_id" property="drugId" jdbcType="INTEGER" />
+		<result column="emancipist_id" property="emancipistId"
+			jdbcType="INTEGER" />
+		<result column="illegal_pertitioner_id" property="illegalPertitionerId"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="DtoResultMap"
+		type="com.hxts.unicorn.modules.resident.dto.ResidentBaseInfoDto">
+
+		<result column="resident_base_id" property="residentBaseId"
+			jdbcType="INTEGER" />
+		<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="contact" jdbcType="VARCHAR" property="contact" />
+		<result column="integrity" jdbcType="DECIMAL" property="integrity" />
+		<result column="residentType" jdbcType="VARCHAR" property="residentType" />
+		<result column="labelId" jdbcType="VARCHAR" property="labelId" />
+	</resultMap>
+
+	<resultMap id="RenterDtoResultMap"
+		type="com.hxts.unicorn.modules.resident.dto.RenterInfoDto">
+
+		<result column="resident_base_id" property="residentBaseId"
+			jdbcType="INTEGER" />
+		<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sex" jdbcType="VARCHAR" property="sex" />
+		<result column="contact" jdbcType="VARCHAR" property="contact" />
+		<result column="integrity" jdbcType="DECIMAL" property="integrity" />
+		<result column="ethnicity" jdbcType="VARCHAR" property="ethnicity" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		resident_base_id, id_no, name, former_name, sex, birth_date, ethnicity, native_place,
+		marital_status, political_status, educational_degree,
+		religious_belief, occupation_category,
+		occupation, employer, contact, registered_residence,
+		registered_residence_address,
+		current_residence, current_residence_address, create_user_id,integrity,picture
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="INTEGER"
+		resultMap="ResidentBaseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_base_info
+		where resident_base_id = #{residentBaseId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="INTEGER">
+		delete from resident_base_info
+		where resident_base_id = #{residentBaseId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentBase"
+		useGeneratedKeys="true" keyProperty="residentBaseId">
+		insert into resident_base_info (id_no, name,
+		former_name, sex, birth_date,
+		ethnicity, native_place, marital_status,
+		political_status, educational_degree, religious_belief,
+		occupation_category, occupation, employer,
+		contact, registered_residence, registered_residence_address,
+		current_residence, current_residence_address,
+		create_user_id,integrity,picture)
+		values (#{idNo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{formerName,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+		#{birthDate,jdbcType=VARCHAR},
+		#{ethnicity,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{maritalStatus,jdbcType=VARCHAR},
+		#{politicalStatus,jdbcType=VARCHAR},
+		#{educationalDegree,jdbcType=VARCHAR},
+		#{religiousBelief,jdbcType=VARCHAR},
+		#{occupationCategory,jdbcType=VARCHAR},
+		#{occupation,jdbcType=VARCHAR}, #{employer,jdbcType=VARCHAR},
+		#{contact,jdbcType=VARCHAR}, #{registeredResidence,jdbcType=VARCHAR},
+		#{registeredResidenceAddress,jdbcType=VARCHAR},
+		#{currentResidence,jdbcType=VARCHAR},
+		#{currentResidenceAddress,jdbcType=VARCHAR},
+		#{createUserId,jdbcType=INTEGER}, #{integrity,jdbcType=DECIMAL},
+		#{picture,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentBase">
+		insert into resident_base_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="residentBaseId != null">
+				resident_base_id,
+			</if>
+			<if test="idNo != null">
+				id_no,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="formerName != null">
+				former_name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthDate != null">
+				birth_date,
+			</if>
+			<if test="ethnicity != null">
+				ethnicity,
+			</if>
+			<if test="nativePlace != null">
+				native_place,
+			</if>
+			<if test="maritalStatus != null">
+				marital_status,
+			</if>
+			<if test="politicalStatus != null">
+				political_status,
+			</if>
+			<if test="educationalDegree != null">
+				educational_degree,
+			</if>
+			<if test="religiousBelief != null">
+				religious_belief,
+			</if>
+			<if test="occupationCategory != null">
+				occupation_category,
+			</if>
+			<if test="occupation != null">
+				occupation,
+			</if>
+			<if test="employer != null">
+				employer,
+			</if>
+			<if test="contact != null">
+				contact,
+			</if>
+			<if test="registeredResidence != null">
+				registered_residence,
+			</if>
+			<if test="registeredResidenceAddress != null">
+				registered_residence_address,
+			</if>
+			<if test="currentResidence != null">
+				current_residence,
+			</if>
+			<if test="currentResidenceAddress != null">
+				current_residence_address,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="integrity != null">
+				integrity,
+			</if>
+			<if test="picture != null">
+				picture,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="residentBaseId != null">
+				#{residentBaseId,jdbcType=INTEGER},
+			</if>
+			<if test="idNo != null">
+				#{idNo,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="formerName != null">
+				#{formerName,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="birthDate != null">
+				#{birthDate,jdbcType=VARCHAR},
+			</if>
+			<if test="ethnicity != null">
+				#{ethnicity,jdbcType=VARCHAR},
+			</if>
+			<if test="nativePlace != null">
+				#{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="maritalStatus != null">
+				#{maritalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="politicalStatus != null">
+				#{politicalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="educationalDegree != null">
+				#{educationalDegree,jdbcType=VARCHAR},
+			</if>
+			<if test="religiousBelief != null">
+				#{religiousBelief,jdbcType=VARCHAR},
+			</if>
+			<if test="occupationCategory != null">
+				#{occupationCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="occupation != null">
+				#{occupation,jdbcType=VARCHAR},
+			</if>
+			<if test="employer != null">
+				#{employer,jdbcType=VARCHAR},
+			</if>
+			<if test="contact != null">
+				#{contact,jdbcType=VARCHAR},
+			</if>
+			<if test="registeredResidence != null">
+				#{registeredResidence,jdbcType=VARCHAR},
+			</if>
+			<if test="registeredResidenceAddress != null">
+				#{registeredResidenceAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="currentResidence != null">
+				#{currentResidence,jdbcType=VARCHAR},
+			</if>
+			<if test="currentResidenceAddress != null">
+				#{currentResidenceAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId,jdbcType=INTEGER},
+			</if>
+			<if test="integrity != null">
+				#{integrity,jdbcType=DECIMAL},
+			</if>
+			<if test="picture != null">
+				#{picture,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentBase">
+		update resident_base_info
+		<set>
+			<if test="idNo != null">
+				id_no = #{idNo,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="formerName != null">
+				former_name = #{formerName,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="birthDate != null">
+				birth_date = #{birthDate,jdbcType=VARCHAR},
+			</if>
+			<if test="ethnicity != null">
+				ethnicity = #{ethnicity,jdbcType=VARCHAR},
+			</if>
+			<if test="nativePlace != null">
+				native_place = #{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="maritalStatus != null">
+				marital_status = #{maritalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="politicalStatus != null">
+				political_status = #{politicalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="educationalDegree != null">
+				educational_degree = #{educationalDegree,jdbcType=VARCHAR},
+			</if>
+			<if test="religiousBelief != null">
+				religious_belief = #{religiousBelief,jdbcType=VARCHAR},
+			</if>
+			<if test="occupationCategory != null">
+				occupation_category = #{occupationCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="occupation != null">
+				occupation = #{occupation,jdbcType=VARCHAR},
+			</if>
+			<if test="employer != null">
+				employer = #{employer,jdbcType=VARCHAR},
+			</if>
+			<if test="contact != null">
+				contact = #{contact,jdbcType=VARCHAR},
+			</if>
+			<if test="registeredResidence != null">
+				registered_residence = #{registeredResidence,jdbcType=VARCHAR},
+			</if>
+			<if test="registeredResidenceAddress != null">
+				registered_residence_address = #{registeredResidenceAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="currentResidence != null">
+				current_residence = #{currentResidence,jdbcType=VARCHAR},
+			</if>
+			<if test="currentResidenceAddress != null">
+				current_residence_address = #{currentResidenceAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId,jdbcType=INTEGER},
+			</if>
+			<if test="integrity != null">
+				integrity = #{integrity,jdbcType=DECIMAL},
+			</if>
+			<if test="picture != null">
+				picture = #{picture,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where resident_base_id = #{residentBaseId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.hxts.unicorn.modules.resident.model.ResidentBase">
+		update resident_base_info
+		set id_no = #{idNo,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		former_name = #{formerName,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=VARCHAR},
+		birth_date = #{birthDate,jdbcType=VARCHAR},
+		ethnicity = #{ethnicity,jdbcType=VARCHAR},
+		native_place = #{nativePlace,jdbcType=VARCHAR},
+		marital_status = #{maritalStatus,jdbcType=VARCHAR},
+		political_status = #{politicalStatus,jdbcType=VARCHAR},
+		educational_degree = #{educationalDegree,jdbcType=VARCHAR},
+		religious_belief = #{religiousBelief,jdbcType=VARCHAR},
+		occupation_category = #{occupationCategory,jdbcType=VARCHAR},
+		occupation = #{occupation,jdbcType=VARCHAR},
+		employer = #{employer,jdbcType=VARCHAR},
+		contact = #{contact,jdbcType=VARCHAR},
+		registered_residence = #{registeredResidence,jdbcType=VARCHAR},
+		registered_residence_address =
+		#{registeredResidenceAddress,jdbcType=VARCHAR},
+		current_residence = #{currentResidence,jdbcType=VARCHAR},
+		current_residence_address = #{currentResidenceAddress,jdbcType=VARCHAR},
+		create_user_id = #{createUserId,jdbcType=INTEGER},
+		integrity = #{integrity,jdbcType=DECIMAL},
+		picture = #{picture,jdbcType=VARCHAR}
+		where resident_base_id = #{residentBaseId,jdbcType=INTEGER}
+	</update>
+	<select id="selectByIdNo" resultMap="ResidentBaseInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_base_info
+		where id_no = #{idNo,jdbcType=VARCHAR}
+		<if test="residentBaseIds != null and residentBaseIds.size > 0">
+			and resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="getResidentBaseInfo" resultMap="ResidentBaseInfoResultMap">
+		select * from resident_base_info
+		where 1=1
+		<if test="residentBaseIds != null and residentBaseIds.size>0 ">
+			and resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="idNo != null">
+			and id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="name != null">
+			and name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	<select id="getAllLabelId" resultMap="labelIdsMap">
+		select
+		r.resident_base_id,h.household_id,f.floating_id,l.left_behind_id,fi.foreigner_id,sa.subsist_allowance_id,
+		la.living_alone_id,dp.disabled_people_id,kt.key_teenager_id,dr.drug_addict_id,e.emancipist_id,i.illegal_pertitioner_id
+		from resident_base_info r
+		left join household_registered_resident_info h on r.resident_base_id =
+		h.resident_base_id
+		left join floating_resident_info f on r.resident_base_id =
+		f.resident_base_id
+		left join left_behind_resident_info l on r.resident_base_id =
+		l.resident_base_id
+		left join foreigner_info fi on r.resident_base_id = fi.resident_base_id
+		left join subsistence_allowance_info sa on r.resident_base_id =
+		sa.resident_base_id
+		left join living_alone_aged_info la on r.resident_base_id =
+		la.resident_base_id
+		left join disabled_people_info dp on r.resident_base_id =
+		dp.resident_base_id
+		left join key_teenager_info kt on r.resident_base_id = kt.resident_base_id
+		left join drug_addict_info dr on r.resident_base_id =
+		dr.resident_base_id
+		left join emancipist_info e on r.resident_base_id = e.resident_base_id
+		left join illegal_pertitioner_info i on r.resident_base_id =
+		i.resident_base_id
+		where 1=1
+		<if test="residentBaseId != null">
+			and r.resident_base_id = #{residentBaseId,jdbcType=INTEGER}
+		</if>
+		<if test="idNo != null">
+			and r.id_no = #{idNo,jdbcType=VARCHAR}
+		</if>
+	</select>
+	<select id="getResidentInfoForList" resultMap="DtoResultMap">
+		select
+		r.resident_base_id,r.name,r.sex,r.id_no,r.contact,r.integrity,t.residentType,t.labelId
+		from resident_base_info r
+		inner join
+		(
+		select resident_base_id,'户籍人口' residentType,household_id labelId from
+		household_registered_resident_info
+		union
+		select resident_base_id,'流动人口' residentType,floating_id labelId from
+		floating_resident_info
+		union
+		select resident_base_id,'境外人口'residentType,foreigner_id labelId from
+		foreigner_info
+		) t
+		on r.resident_base_id = t.resident_base_id
+		where 1=1
+		<if test="integrity != null">
+			and r.integrity &lt;= #{integrity,jdbcType=DECIMAL}
+		</if>
+		<if test="name != null">
+			and (r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%') or
+			r.former_name like CONCAT('%', #{name,jdbcType=VARCHAR},'%'))
+		</if>
+		<if test="idNo != null">
+			and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="residentBaseIds != null and residentBaseIds.size > 0">
+			and r.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="getRenterInfoList" resultMap="RenterDtoResultMap">
+		select
+		r.resident_base_id,r.name,r.sex,r.id_no,r.contact,r.integrity,r.ethnicity
+		from resident_base_info r
+		where 1=1
+		<if test="integrity != null">
+			and r.integrity &lt;= #{integrity,jdbcType=DECIMAL}
+		</if>
+		<if test="name != null">
+			and (r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%') or
+			r.former_name like CONCAT('%', #{name,jdbcType=VARCHAR},'%'))
+		</if>
+		<if test="ethnicity != null">
+			and r.ethnicity = #{ethnicity,jdbcType=VARCHAR}
+		</if>
+		<if test="idNo != null">
+			and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="getResidentInfoByKeywords" resultMap="ResidentBaseInfoResultMap">
+		select r.* from resident_base_info r
+		where 1=1
+		<if test="name != null">
+			and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="idNo != null">
+			and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="contact != null">
+			and r.contact like CONCAT('%', #{contact,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="residentBaseIds != null and residentBaseIds.size > 0">
+			and r.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="getTagStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select '户籍人口' name,count(*) total from
+		household_registered_resident_info
+		<if test="residentBaseIds != null">
+			where household_registered_resident_info.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union
+		select '流动人口',count(*) from floating_resident_info
+		<if test="residentBaseIds != null">
+			where floating_resident_info.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union
+		select '境外人口',count(*) from foreigner_info
+		<if test="residentBaseIds != null">
+			where foreigner_info.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="getDegreeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select name,count(*) total from
+		(
+		select
+		case when degree = 1 then '研究生'
+		when degree = 2 then '本科'
+		when degree = 3 then '专科'
+		when degree = 4 then
+		'中专'
+		when degree = 6 then '高中'
+		when degree = 7 then '初中'
+		when degree = 8
+		then '小学'
+		else '其它' end name
+		from
+		(
+		select left(educational_degree,1) degree from resident_base_info where
+		educational_degree is not null
+		<if test="residentBaseIds != null">
+			and resident_base_info.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		) t
+		) t1 group by name order by name
+	</select>
+
+	<select id="getAgeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select name,count(*) total from
+		(
+		select
+		case when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 7
+		YEAR),'%Y%m%d') then '0~6岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 13 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 7
+		YEAR),'%Y%m%d') then '7~12岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 19 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 13
+		YEAR),'%Y%m%d') then '13~18岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 24 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 19
+		YEAR),'%Y%m%d') then '19~23岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 31 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 24
+		YEAR),'%Y%m%d') then '24~30岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 41 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 31
+		YEAR),'%Y%m%d') then '31~40岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 51 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 41
+		YEAR),'%Y%m%d') then '41~50岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 61 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 51
+		YEAR),'%Y%m%d') then '51~60岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 71 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 61
+		YEAR),'%Y%m%d') then '61~70岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 81 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 71
+		YEAR),'%Y%m%d') then '71~80岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 91 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 81
+		YEAR),'%Y%m%d') then '81~90岁'
+		when birth_date &lt;=
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 91 YEAR),'%Y%m%d') then
+		'91岁及以上'
+		else '其它' end name
+		from resident_base_info where birth_date is
+		not null
+		<if test="residentBaseIds != null">
+			and resident_base_info.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		) t group by name
+	</select>
+	<select id="getRenterAgeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select name,count(*) total from
+		(
+		select
+		case when birth_date > DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 11
+		YEAR),'%Y%m%d') then '0~10岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 21 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 11
+		YEAR),'%Y%m%d') then '11~20岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 36 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 21
+		YEAR),'%Y%m%d') then '21~35岁'
+		when birth_date >
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 46 YEAR),'%Y%m%d') and
+		birth_date &lt;= DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 36
+		YEAR),'%Y%m%d') then '36~45岁'
+		when birth_date &lt;=
+		DATE_FORMAT(DATE_SUB(SYSDATE(),INTERVAL 46 YEAR),'%Y%m%d') then
+		'46岁及以上'
+		else '其它' end name
+		from resident_base_info
+		<if test="residentBaseIds != null">
+			where resident_base_info.resident_base_id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		) t group by name
+	</select>
+	<select id="getLabelCountByIds" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select name,count(*) total from
+		(
+		<trim prefixOverrides="union">
+			<if test="isLeftBehind == true">
+				union select '留守' name,resident_base_id id from
+				left_behind_resident_info
+			</if>
+			<if test="isSuballow == true">
+				union select '低保' name,resident_base_id id from
+				subsistence_allowance_info
+			</if>
+			<if test="isLivealone == true">
+				union select '独居老人' name,resident_base_id id from
+				living_alone_aged_info
+			</if>
+			<if test="isDisabled == true">
+				union select '残障' name,resident_base_id id from
+				disabled_people_info
+			</if>
+			<if test="isTeenager == true">
+				union select '重点青少年' name,resident_base_id id from
+				key_teenager_info
+			</if>
+			<if test="isDrug == true">
+				union select '吸毒' name,resident_base_id id from
+				drug_addict_info
+			</if>
+			<if test="isEmancipist == true">
+				union select '刑满释放' name,resident_base_id id from
+				emancipist_info
+			</if>
+			<if test="isIllegalPertitioner == true">
+				union select '非法上访' name,resident_base_id id from
+				illegal_pertitioner_info
+			</if>
+		</trim>
+		) t
+		<if test="residentBaseIds != null">
+			where t.id in
+			<foreach collection="residentBaseIds" index="index" item="item"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		group by name
+	</select>
+</mapper>

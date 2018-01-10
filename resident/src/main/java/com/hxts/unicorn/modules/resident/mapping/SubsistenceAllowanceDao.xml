@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.SubsistenceAllowanceDao" >
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.SubsistenceAllowance" >
+    <id column="subsist_allowance_id" property="subsistAllowanceId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="health_condition" property="healthCondition" jdbcType="VARCHAR" />
+    <result column="family_member" property="familyMember" jdbcType="INTEGER" />
+    <result column="family_employ_status" property="familyEmployStatus" jdbcType="VARCHAR" />
+    <result column="family_health_condition" property="familyHealthCondition" jdbcType="VARCHAR" />
+    <result column="family_month_income" property="familyMonthIncome" jdbcType="VARCHAR" />
+    <result column="has_disabled" property="hasDisabled" jdbcType="VARCHAR" />
+    <result column="month_relief_fund" property="monthReliefFund" jdbcType="INTEGER" />
+    <result column="poverty_reason" property="povertyReason" jdbcType="VARCHAR" />
+    <result column="subsist_allowance_category" property="subsistAllowanceCategory" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="SubsistenceAllowanceInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.SubsistenceAllowanceInfo" >
+    <id column="subsist_allowance_id" property="subsistAllowanceId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="health_condition" property="healthCondition" jdbcType="VARCHAR" />
+    <result column="family_member" property="familyMember" jdbcType="INTEGER" />
+    <result column="family_employ_status" property="familyEmployStatus" jdbcType="VARCHAR" />
+    <result column="family_health_condition" property="familyHealthCondition" jdbcType="VARCHAR" />
+    <result column="family_month_income" property="familyMonthIncome" jdbcType="VARCHAR" />
+    <result column="has_disabled" property="hasDisabled" jdbcType="VARCHAR" />
+    <result column="month_relief_fund" property="monthReliefFund" jdbcType="INTEGER" />
+    <result column="poverty_reason" property="povertyReason" jdbcType="VARCHAR" />
+    <result column="subsist_allowance_category" property="subsistAllowanceCategory" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="DtoResultMap" type="com.hxts.unicorn.modules.resident.dto.AssistCrowdDto" >
+    <id column="label_id" property="labelId" jdbcType="INTEGER" />  
+    <result column="health_condition" property="healthCondition" jdbcType="VARCHAR" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="assist_type" jdbcType="VARCHAR" property="assistType" />
+  </resultMap>
+  <resultMap id="ResidentBaseInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.ResidentBaseInfo">
+    <id column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="former_name" jdbcType="VARCHAR" property="formerName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birth_date" jdbcType="VARCHAR" property="birthDate" />
+    <result column="ethnicity" jdbcType="VARCHAR" property="ethnicity" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="marital_status" jdbcType="VARCHAR" property="maritalStatus" />
+    <result column="political_status" jdbcType="VARCHAR" property="politicalStatus" />
+    <result column="educational_degree" jdbcType="VARCHAR" property="educationalDegree" />
+    <result column="religious_belief" jdbcType="VARCHAR" property="religiousBelief" />
+    <result column="occupation_category" jdbcType="VARCHAR" property="occupationCategory" />
+    <result column="occupation" jdbcType="VARCHAR" property="occupation" />
+    <result column="employer" jdbcType="VARCHAR" property="employer" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="registered_residence" jdbcType="VARCHAR" property="registeredResidence" />
+    <result column="registered_residence_address" jdbcType="VARCHAR" property="registeredResidenceAddress" />
+    <result column="current_residence" jdbcType="VARCHAR" property="currentResidence" />
+    <result column="current_residence_address" jdbcType="VARCHAR" property="currentResidenceAddress" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="integrity" jdbcType="DECIMAL" property="integrity" />
+    <result column="picture" jdbcType="VARCHAR" property="picture" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    subsist_allowance_id, resident_base_id, health_condition, family_member, family_employ_status, 
+    family_health_condition, family_month_income, has_disabled, month_relief_fund, poverty_reason, 
+    subsist_allowance_category, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SubsistenceAllowanceInfoResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from subsistence_allowance_info
+    where subsist_allowance_id = #{subsistAllowanceId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from subsistence_allowance_info
+    where subsist_allowance_id = #{subsistAllowanceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.SubsistenceAllowance" >
+    insert into subsistence_allowance_info (subsist_allowance_id, resident_base_id, 
+      health_condition, family_member, family_employ_status, 
+      family_health_condition, family_month_income, 
+      has_disabled, month_relief_fund, poverty_reason, 
+      subsist_allowance_category, create_user_id
+      )
+    values (#{subsistAllowanceId,jdbcType=INTEGER}, #{residentBaseId,jdbcType=INTEGER}, 
+      #{healthCondition,jdbcType=VARCHAR}, #{familyMember,jdbcType=INTEGER}, #{familyEmployStatus,jdbcType=VARCHAR}, 
+      #{familyHealthCondition,jdbcType=VARCHAR}, #{familyMonthIncome,jdbcType=VARCHAR}, 
+      #{hasDisabled,jdbcType=VARCHAR}, #{monthReliefFund,jdbcType=INTEGER}, #{povertyReason,jdbcType=VARCHAR}, 
+      #{subsistAllowanceCategory,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.SubsistenceAllowance" >
+    insert into subsistence_allowance_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subsistAllowanceId != null" >
+        subsist_allowance_id,
+      </if>
+      <if test="residentBaseId != null" >
+        resident_base_id,
+      </if>
+      <if test="healthCondition != null" >
+        health_condition,
+      </if>
+      <if test="familyMember != null" >
+        family_member,
+      </if>
+      <if test="familyEmployStatus != null" >
+        family_employ_status,
+      </if>
+      <if test="familyHealthCondition != null" >
+        family_health_condition,
+      </if>
+      <if test="familyMonthIncome != null" >
+        family_month_income,
+      </if>
+      <if test="hasDisabled != null" >
+        has_disabled,
+      </if>
+      <if test="monthReliefFund != null" >
+        month_relief_fund,
+      </if>
+      <if test="povertyReason != null" >
+        poverty_reason,
+      </if>
+      <if test="subsistAllowanceCategory != null" >
+        subsist_allowance_category,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subsistAllowanceId != null" >
+        #{subsistAllowanceId,jdbcType=INTEGER},
+      </if>
+      <if test="residentBaseId != null" >
+        #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="healthCondition != null" >
+        #{healthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMember != null" >
+        #{familyMember,jdbcType=INTEGER},
+      </if>
+      <if test="familyEmployStatus != null" >
+        #{familyEmployStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="familyHealthCondition != null" >
+        #{familyHealthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMonthIncome != null" >
+        #{familyMonthIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="hasDisabled != null" >
+        #{hasDisabled,jdbcType=VARCHAR},
+      </if>
+      <if test="monthReliefFund != null" >
+        #{monthReliefFund,jdbcType=INTEGER},
+      </if>
+      <if test="povertyReason != null" >
+        #{povertyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="subsistAllowanceCategory != null" >
+        #{subsistAllowanceCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.SubsistenceAllowance" >
+    update subsistence_allowance_info
+    <set >
+      <if test="residentBaseId != null" >
+        resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="healthCondition != null" >
+        health_condition = #{healthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMember != null" >
+        family_member = #{familyMember,jdbcType=INTEGER},
+      </if>
+      <if test="familyEmployStatus != null" >
+        family_employ_status = #{familyEmployStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="familyHealthCondition != null" >
+        family_health_condition = #{familyHealthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMonthIncome != null" >
+        family_month_income = #{familyMonthIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="hasDisabled != null" >
+        has_disabled = #{hasDisabled,jdbcType=VARCHAR},
+      </if>
+      <if test="monthReliefFund != null" >
+        month_relief_fund = #{monthReliefFund,jdbcType=INTEGER},
+      </if>
+      <if test="povertyReason != null" >
+        poverty_reason = #{povertyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="subsistAllowanceCategory != null" >
+        subsist_allowance_category = #{subsistAllowanceCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where subsist_allowance_id = #{subsistAllowanceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.SubsistenceAllowance" >
+    update subsistence_allowance_info
+    set resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      health_condition = #{healthCondition,jdbcType=VARCHAR},
+      family_member = #{familyMember,jdbcType=INTEGER},
+      family_employ_status = #{familyEmployStatus,jdbcType=VARCHAR},
+      family_health_condition = #{familyHealthCondition,jdbcType=VARCHAR},
+      family_month_income = #{familyMonthIncome,jdbcType=VARCHAR},
+      has_disabled = #{hasDisabled,jdbcType=VARCHAR},
+      month_relief_fund = #{monthReliefFund,jdbcType=INTEGER},
+      poverty_reason = #{povertyReason,jdbcType=VARCHAR},
+      subsist_allowance_category = #{subsistAllowanceCategory,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=INTEGER}
+    where subsist_allowance_id = #{subsistAllowanceId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAssistTypeStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select '低保' name,count(*) total from subsistence_allowance_info
+		<if test="residentBaseIds != null">
+			where subsistence_allowance_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if> 
+		union 
+		select '独居老人' name,count(*) total from living_alone_aged_info
+		<if test="residentBaseIds != null">
+			where living_alone_aged_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union 
+		select '残障' name,count(*) total from disabled_people_info
+		<if test="residentBaseIds != null">
+			where disabled_people_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+  </select>
+  
+  <select id="getAssistTypeStatsCount" resultType="Integer">
+		select resident_base_id from subsistence_allowance_info
+		<if test="residentBaseIds != null">
+			where subsistence_allowance_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if> 
+		union 
+		select resident_base_id from living_alone_aged_info
+		<if test="residentBaseIds != null">
+			where living_alone_aged_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union 
+		select resident_base_id from disabled_people_info
+		<if test="residentBaseIds != null">
+			where disabled_people_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+  </select>
+  
+  <select id="queryAssistCrowdListByKeywords" resultMap="DtoResultMap">
+		select r.resident_base_id,r.name,r.sex,r.id_no,r.contact,s.subsist_allowance_id label_id,s.health_condition,'suballow' assist_type from subsistence_allowance_info s 
+		inner join resident_base_info r on s.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="healthCondition != null" >
+        and s.health_condition = #{healthCondition,jdbcType=VARCHAR}
+        </if>
+        <if test="assistType != null" >
+        and 'subAllow' = #{assistType,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union 
+		select r.resident_base_id,r.name,r.sex,r.id_no,r.contact,l.living_alone_id label_id,l.health_condition ,'livealone' assist_type from living_alone_aged_info l 
+		inner join resident_base_info r on l.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="healthCondition != null" >
+        and l.health_condition = #{healthCondition,jdbcType=VARCHAR}
+        </if>
+        <if test="assistType != null" >
+        and 'liveAlone' = #{assistType,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union
+		select r.resident_base_id,r.name,r.sex,r.id_no,r.contact,d.disabled_people_id label_id,d.health_condition ,'disabled' assist_type from disabled_people_info d 
+		inner join resident_base_info r on d.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="healthCondition != null" >
+        and d.health_condition = #{healthCondition,jdbcType=VARCHAR}
+        </if>
+         <if test="assistType != null" >
+        and 'disabled' = #{assistType,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryBaseInfoByKeywords" resultMap="ResidentBaseInfoResultMap">
+		select r.* from subsistence_allowance_info s 
+		inner join resident_base_info r on s.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="healthCondition != null" >
+        and s.health_condition = #{healthCondition,jdbcType=VARCHAR}
+        </if>
+        <if test="assistType != null" >
+        and 'subAllow' = #{assistType,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union 
+		select r.* from living_alone_aged_info l 
+		inner join resident_base_info r on l.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="healthCondition != null" >
+        and l.health_condition = #{healthCondition,jdbcType=VARCHAR}
+        </if>
+        <if test="assistType != null" >
+        and 'liveAlone' = #{assistType,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		union
+		select r.* from disabled_people_info d 
+		inner join resident_base_info r on d.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="healthCondition != null" >
+        and d.health_condition = #{healthCondition,jdbcType=VARCHAR}
+        </if>
+         <if test="assistType != null" >
+        and 'disabled' = #{assistType,jdbcType=VARCHAR}
+        </if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+		<if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

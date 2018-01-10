@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.CarInfoDao">
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.Car">
+    <id column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+    <result column="car_no" jdbcType="VARCHAR" property="carNo" />
+    <result column="car_color" jdbcType="VARCHAR" property="carColor" />
+    <result column="car_usage" jdbcType="VARCHAR" property="carUsage" />
+  </resultMap>
+    <resultMap id="CarInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.CarInfo">
+    <id column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+    <result column="car_no" jdbcType="VARCHAR" property="carNo" />
+    <result column="car_color" jdbcType="VARCHAR" property="carColor" />
+    <result column="car_usage" jdbcType="VARCHAR" property="carUsage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    car_id, resident_base_id, car_no, car_color, car_usage
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="CarInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_info
+    where car_id = #{carId,jdbcType=INTEGER}
+  </select>
+    <select id="getall" parameterType="java.lang.Integer" resultMap="CarInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_info
+  </select>
+   <select id="selectByResidentBaseId" parameterType="java.lang.Integer" resultMap="CarInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_info
+    where 1=1
+       <if test="residentBaseId != null" >
+     and resident_base_id = #{residentBaseId,jdbcType=INTEGER}
+   </if>
+      
+  </select>
+    <select id="getcarInfo" parameterType="java.lang.Integer" resultMap="CarInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_info
+    where resident_base_id = #{residentBaseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from car_info
+    where car_id = #{carId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.Car">
+    insert into car_info (car_id, resident_base_id, car_no, 
+      car_color, car_usage)
+    values (#{carId,jdbcType=INTEGER}, #{residentBaseId,jdbcType=INTEGER}, #{carNo,jdbcType=VARCHAR}, 
+      #{carColor,jdbcType=VARCHAR}, #{carUsage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.Car">
+    insert into car_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carId != null">
+        car_id,
+      </if>
+      <if test="residentBaseId != null">
+        resident_base_id,
+      </if>
+      <if test="carNo != null">
+        car_no,
+      </if>
+      <if test="carColor != null">
+        car_color,
+      </if>
+      <if test="carUsage != null">
+        car_usage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carId != null">
+        #{carId,jdbcType=INTEGER},
+      </if>
+      <if test="residentBaseId != null">
+        #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="carNo != null">
+        #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="carColor != null">
+        #{carColor,jdbcType=VARCHAR},
+      </if>
+      <if test="carUsage != null">
+        #{carUsage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.Car">
+    update car_info
+    <set>
+      <if test="residentBaseId != null">
+        resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="carNo != null">
+        car_no = #{carNo,jdbcType=VARCHAR},
+      </if>
+      <if test="carColor != null">
+        car_color = #{carColor,jdbcType=VARCHAR},
+      </if>
+      <if test="carUsage != null">
+        car_usage = #{carUsage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where car_id = #{carId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.Car">
+    update car_info
+    set resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      car_no = #{carNo,jdbcType=VARCHAR},
+      car_color = #{carColor,jdbcType=VARCHAR},
+      car_usage = #{carUsage,jdbcType=VARCHAR}
+    where car_id = #{carId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.FloatingResidentDao" >
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.FloatingResident" >
+    <id column="floating_id" property="floatingId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="inflow_reason" property="inflowReason" jdbcType="VARCHAR" />
+    <result column="certificate_handling_type" property="certificateHandlingType" jdbcType="VARCHAR" />
+    <result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+    <result column="register_date" property="registerDate" jdbcType="VARCHAR" />
+    <result column="certificate_expire_date" property="certificateExpireDate" jdbcType="VARCHAR" />
+    <result column="residence_type" property="residenceType" jdbcType="VARCHAR" />
+    <result column="is_focus_person" property="isFocusPerson" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="FloatingResidentInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.FloatingResidentInfo" >
+    <id column="floating_id" property="floatingId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="inflow_reason" property="inflowReason" jdbcType="VARCHAR" />
+    <result column="certificate_handling_type" property="certificateHandlingType" jdbcType="VARCHAR" />
+    <result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+    <result column="register_date" property="registerDate" jdbcType="VARCHAR" />
+    <result column="certificate_expire_date" property="certificateExpireDate" jdbcType="VARCHAR" />
+    <result column="residence_type" property="residenceType" jdbcType="VARCHAR" />
+    <result column="is_focus_person" property="isFocusPerson" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+   <resultMap id="FloatingDtoResultMap" type="com.hxts.unicorn.modules.resident.dto.FloatingResidentDto" >
+  	<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="floating_id" property="FloatingId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="certificate_handling_type" property="certificateHandlingType" jdbcType="VARCHAR" />
+    <result column="certificate_expire_date" property="certificateExpireDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    floating_id, resident_base_id, inflow_reason, certificate_handling_type, certificate_no, 
+    register_date, certificate_expire_date, residence_type, is_focus_person, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="FloatingResidentInfoResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from floating_resident_info
+    where floating_id = #{floatingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from floating_resident_info
+    where floating_id = #{floatingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.FloatingResident" >
+    insert into floating_resident_info (floating_id, resident_base_id, inflow_reason, 
+      certificate_handling_type, certificate_no, 
+      register_date, certificate_expire_date, residence_type, 
+      is_focus_person, create_user_id)
+    values (#{floatingId,jdbcType=INTEGER}, #{residentBaseId,jdbcType=INTEGER}, #{inflowReason,jdbcType=VARCHAR}, 
+      #{certificateHandlingType,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, 
+      #{registerDate,jdbcType=VARCHAR}, #{certificateExpireDate,jdbcType=VARCHAR}, #{residenceType,jdbcType=VARCHAR}, 
+      #{isFocusPerson,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.FloatingResident" >
+    insert into floating_resident_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="floatingId != null" >
+        floating_id,
+      </if>
+      <if test="residentBaseId != null" >
+        resident_base_id,
+      </if>
+      <if test="inflowReason != null" >
+        inflow_reason,
+      </if>
+      <if test="certificateHandlingType != null" >
+        certificate_handling_type,
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no,
+      </if>
+      <if test="registerDate != null" >
+        register_date,
+      </if>
+      <if test="certificateExpireDate != null" >
+        certificate_expire_date,
+      </if>
+      <if test="residenceType != null" >
+        residence_type,
+      </if>
+      <if test="isFocusPerson != null" >
+        is_focus_person,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="floatingId != null" >
+        #{floatingId,jdbcType=INTEGER},
+      </if>
+      <if test="residentBaseId != null" >
+        #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="inflowReason != null" >
+        #{inflowReason,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateHandlingType != null" >
+        #{certificateHandlingType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null" >
+        #{registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateExpireDate != null" >
+        #{certificateExpireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceType != null" >
+        #{residenceType,jdbcType=VARCHAR},
+      </if>
+      <if test="isFocusPerson != null" >
+        #{isFocusPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.FloatingResident" >
+    update floating_resident_info
+    <set >
+      <if test="residentBaseId != null" >
+        resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="inflowReason != null" >
+        inflow_reason = #{inflowReason,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateHandlingType != null" >
+        certificate_handling_type = #{certificateHandlingType,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null" >
+        register_date = #{registerDate,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateExpireDate != null" >
+        certificate_expire_date = #{certificateExpireDate,jdbcType=VARCHAR},
+      </if>
+      <if test="residenceType != null" >
+        residence_type = #{residenceType,jdbcType=VARCHAR},
+      </if>
+      <if test="isFocusPerson != null" >
+        is_focus_person = #{isFocusPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where floating_id = #{floatingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.FloatingResident" >
+    update floating_resident_info
+    set resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      inflow_reason = #{inflowReason,jdbcType=VARCHAR},
+      certificate_handling_type = #{certificateHandlingType,jdbcType=VARCHAR},
+      certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      register_date = #{registerDate,jdbcType=VARCHAR},
+      certificate_expire_date = #{certificateExpireDate,jdbcType=VARCHAR},
+      residence_type = #{residenceType,jdbcType=VARCHAR},
+      is_focus_person = #{isFocusPerson,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=INTEGER}
+    where floating_id = #{floatingId,jdbcType=INTEGER}
+  </update>
+    <select id="queryFloatingResidentListByKeywords"
+		resultMap="FloatingDtoResultMap">
+		select r.id_no,r.name,r.sex,r.contact,r.current_residence_address,f.floating_id,f.resident_base_id,f.certificate_handling_type,f.certificate_expire_date from floating_resident_info f 
+		inner join resident_base_info r on f.resident_base_id = r.resident_base_id
+		where 1=1
+		<if test="inflowReason != null" >
+        and f.inflow_reason = #{inflowReason,jdbcType=VARCHAR}
+        </if>
+        <if test="isFocusPerson != null">
+        and f.is_focus_person = #{isFocusPerson,jdbcType=DECIMAL}
+      	</if>
+      	<if test="certificateHandlingType != null" >
+        and f.certificate_handling_type = #{certificateHandlingType,jdbcType=VARCHAR}
+        </if>
+        <if test="certificateExpireDate != null">
+        and f.certificate_expire_date >= #{certificateExpireDate,jdbcType=DECIMAL}
+      	</if>
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+  <select id="getInflowReasonStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+  	select name,count(*) total from
+  	(
+		select
+			case when inflow_reason = '01' then '务工' 
+			when inflow_reason = '02' then '务农'
+			when inflow_reason = '03' then '经商'
+			when inflow_reason = '04' then '学习培训'
+			when inflow_reason = '05' then '婚嫁'
+			when inflow_reason = '06' then '随迁'
+			when inflow_reason = '07' then '治病疗养'
+			when inflow_reason = '08' then '投靠亲友'
+			when inflow_reason = '09' then '工作调动'
+			else '其它' end name
+		from floating_resident_info
+		<if test="residentBaseIds != null">
+			where floating_resident_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	)t group by name
+  </select>
+  
+    <select id="getCertificateExpireStats" resultType="com.hxts.unicorn.modules.resident.model.StatsResult">
+		select name,count(*) total from 
+		(
+		select 
+		case when certificate_expire_date >= DATE_FORMAT(SYSDATE(),'%Y%m%d') and certificate_expire_date &lt;=DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL 1 MONTH),'%Y%m%d') then '1个月内'
+		when certificate_expire_date > DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL 1 MONTH),'%Y%m%d') and certificate_expire_date &lt;= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL 3 MONTH),'%Y%m%d') then '3个月内'
+		when certificate_expire_date > DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL 3 MONTH),'%Y%m%d') and certificate_expire_date &lt;= DATE_FORMAT(DATE_ADD(SYSDATE(),INTERVAL 6 MONTH),'%Y%m%d') then '6个月内'
+		when certificate_expire_date &lt; DATE_FORMAT(SYSDATE(),'%Y%m%d') then '已过期'
+		 else '其它' end name
+		 from floating_resident_info where certificate_expire_date is not null
+		 <if test="residentBaseIds != null">
+			and floating_resident_info.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		) t where name &lt;> '其它' group by name
+  </select>
+</mapper>

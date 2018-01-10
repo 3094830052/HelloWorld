@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.EmancipistDao" >
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.Emancipist" >
+    <id column="emancipist_id" property="emancipistId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="is_recidivism_id" property="isRecidivismId" jdbcType="INTEGER" />
+    <result column="original_condemned" property="originalCondemned" jdbcType="VARCHAR" />
+    <result column="original_sentence" property="originalSentence" jdbcType="VARCHAR" />
+    <result column="punishment_place" property="punishmentPlace" jdbcType="VARCHAR" />
+    <result column="release_date" property="releaseDate" jdbcType="TIMESTAMP" />
+    <result column="risk_assessment_type" property="riskAssessmentType" jdbcType="VARCHAR" />
+    <result column="cohesion_date" property="cohesionDate" jdbcType="TIMESTAMP" />
+    <result column="cohesion_situation" property="cohesionSituation" jdbcType="VARCHAR" />
+    <result column="place_date" property="placeDate" jdbcType="TIMESTAMP" />
+    <result column="place_situation" property="placeSituation" jdbcType="VARCHAR" />
+    <result column="unplace_reason" property="unplaceReason" jdbcType="VARCHAR" />
+    <result column="help_teach_situation" property="helpTeachSituation" jdbcType="VARCHAR" />
+    <result column="is_crime_again" property="isCrimeAgain" jdbcType="INTEGER" />
+    <result column="re_condemned" property="reCondemned" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="EmancipistInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.EmancipistInfo" >
+    <id column="emancipist_id" property="emancipistId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="is_recidivism_id" property="isRecidivismId" jdbcType="INTEGER" />
+    <result column="original_condemned" property="originalCondemned" jdbcType="VARCHAR" />
+    <result column="original_sentence" property="originalSentence" jdbcType="VARCHAR" />
+    <result column="punishment_place" property="punishmentPlace" jdbcType="VARCHAR" />
+    <result column="release_date" property="releaseDate" jdbcType="TIMESTAMP" />
+    <result column="risk_assessment_type" property="riskAssessmentType" jdbcType="VARCHAR" />
+    <result column="cohesion_date" property="cohesionDate" jdbcType="TIMESTAMP" />
+    <result column="cohesion_situation" property="cohesionSituation" jdbcType="VARCHAR" />
+    <result column="place_date" property="placeDate" jdbcType="TIMESTAMP" />
+    <result column="place_situation" property="placeSituation" jdbcType="VARCHAR" />
+    <result column="unplace_reason" property="unplaceReason" jdbcType="VARCHAR" />
+    <result column="help_teach_situation" property="helpTeachSituation" jdbcType="VARCHAR" />
+    <result column="is_crime_again" property="isCrimeAgain" jdbcType="INTEGER" />
+    <result column="re_condemned" property="reCondemned" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="EmancipistDtoResultMap" type="com.hxts.unicorn.modules.resident.dto.EmancipistDto" >
+  	<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="risk_assessment_type" property="riskAssessmentType" jdbcType="VARCHAR" />
+    <result column="cohesion_date" property="cohesionDate" jdbcType="TIMESTAMP" />
+    <result column="place_situation" property="placeSituation" jdbcType="VARCHAR" />
+    <result column="emancipist_id" property="emancipistId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    emancipist_id, resident_base_id, is_recidivism_id, original_condemned, original_sentence, 
+    punishment_place, release_date, risk_assessment_type, cohesion_date, cohesion_situation, 
+    place_date, place_situation, unplace_reason, help_teach_situation, is_crime_again, 
+    re_condemned, create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="EmancipistInfoResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emancipist_info
+    where emancipist_id = #{emancipistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from emancipist_info
+    where emancipist_id = #{emancipistId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.Emancipist" >
+    insert into emancipist_info (emancipist_id, resident_base_id, is_recidivism_id, 
+      original_condemned, original_sentence, punishment_place, 
+      release_date, risk_assessment_type, cohesion_date, 
+      cohesion_situation, place_date, place_situation, 
+      unplace_reason, help_teach_situation, is_crime_again, 
+      re_condemned, create_user_id)
+    values (#{emancipistId,jdbcType=INTEGER}, #{residentBaseId,jdbcType=INTEGER}, #{isRecidivismId,jdbcType=INTEGER}, 
+      #{originalCondemned,jdbcType=VARCHAR}, #{originalSentence,jdbcType=VARCHAR}, #{punishmentPlace,jdbcType=VARCHAR}, 
+      #{releaseDate,jdbcType=TIMESTAMP}, #{riskAssessmentType,jdbcType=VARCHAR}, #{cohesionDate,jdbcType=TIMESTAMP}, 
+      #{cohesionSituation,jdbcType=VARCHAR}, #{placeDate,jdbcType=TIMESTAMP}, #{placeSituation,jdbcType=VARCHAR}, 
+      #{unplaceReason,jdbcType=VARCHAR}, #{helpTeachSituation,jdbcType=VARCHAR}, #{isCrimeAgain,jdbcType=INTEGER}, 
+      #{reCondemned,jdbcType=VARCHAR}, #{createUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.Emancipist" >
+    insert into emancipist_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="emancipistId != null" >
+        emancipist_id,
+      </if>
+      <if test="residentBaseId != null" >
+        resident_base_id,
+      </if>
+      <if test="isRecidivismId != null" >
+        is_recidivism_id,
+      </if>
+      <if test="originalCondemned != null" >
+        original_condemned,
+      </if>
+      <if test="originalSentence != null" >
+        original_sentence,
+      </if>
+      <if test="punishmentPlace != null" >
+        punishment_place,
+      </if>
+      <if test="releaseDate != null" >
+        release_date,
+      </if>
+      <if test="riskAssessmentType != null" >
+        risk_assessment_type,
+      </if>
+      <if test="cohesionDate != null" >
+        cohesion_date,
+      </if>
+      <if test="cohesionSituation != null" >
+        cohesion_situation,
+      </if>
+      <if test="placeDate != null" >
+        place_date,
+      </if>
+      <if test="placeSituation != null" >
+        place_situation,
+      </if>
+      <if test="unplaceReason != null" >
+        unplace_reason,
+      </if>
+      <if test="helpTeachSituation != null" >
+        help_teach_situation,
+      </if>
+      <if test="isCrimeAgain != null" >
+        is_crime_again,
+      </if>
+      <if test="reCondemned != null" >
+        re_condemned,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="emancipistId != null" >
+        #{emancipistId,jdbcType=INTEGER},
+      </if>
+      <if test="residentBaseId != null" >
+        #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="isRecidivismId != null" >
+        #{isRecidivismId,jdbcType=INTEGER},
+      </if>
+      <if test="originalCondemned != null" >
+        #{originalCondemned,jdbcType=VARCHAR},
+      </if>
+      <if test="originalSentence != null" >
+        #{originalSentence,jdbcType=VARCHAR},
+      </if>
+      <if test="punishmentPlace != null" >
+        #{punishmentPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null" >
+        #{releaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="riskAssessmentType != null" >
+        #{riskAssessmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="cohesionDate != null" >
+        #{cohesionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cohesionSituation != null" >
+        #{cohesionSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="placeDate != null" >
+        #{placeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="placeSituation != null" >
+        #{placeSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="unplaceReason != null" >
+        #{unplaceReason,jdbcType=VARCHAR},
+      </if>
+      <if test="helpTeachSituation != null" >
+        #{helpTeachSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="isCrimeAgain != null" >
+        #{isCrimeAgain,jdbcType=INTEGER},
+      </if>
+      <if test="reCondemned != null" >
+        #{reCondemned,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.Emancipist" >
+    update emancipist_info
+    <set >
+      <if test="residentBaseId != null" >
+        resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="isRecidivismId != null" >
+        is_recidivism_id = #{isRecidivismId,jdbcType=INTEGER},
+      </if>
+      <if test="originalCondemned != null" >
+        original_condemned = #{originalCondemned,jdbcType=VARCHAR},
+      </if>
+      <if test="originalSentence != null" >
+        original_sentence = #{originalSentence,jdbcType=VARCHAR},
+      </if>
+      <if test="punishmentPlace != null" >
+        punishment_place = #{punishmentPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="releaseDate != null" >
+        release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="riskAssessmentType != null" >
+        risk_assessment_type = #{riskAssessmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="cohesionDate != null" >
+        cohesion_date = #{cohesionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cohesionSituation != null" >
+        cohesion_situation = #{cohesionSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="placeDate != null" >
+        place_date = #{placeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="placeSituation != null" >
+        place_situation = #{placeSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="unplaceReason != null" >
+        unplace_reason = #{unplaceReason,jdbcType=VARCHAR},
+      </if>
+      <if test="helpTeachSituation != null" >
+        help_teach_situation = #{helpTeachSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="isCrimeAgain != null" >
+        is_crime_again = #{isCrimeAgain,jdbcType=INTEGER},
+      </if>
+      <if test="reCondemned != null" >
+        re_condemned = #{reCondemned,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where emancipist_id = #{emancipistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.Emancipist" >
+    update emancipist_info
+    set resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      is_recidivism_id = #{isRecidivismId,jdbcType=INTEGER},
+      original_condemned = #{originalCondemned,jdbcType=VARCHAR},
+      original_sentence = #{originalSentence,jdbcType=VARCHAR},
+      punishment_place = #{punishmentPlace,jdbcType=VARCHAR},
+      release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      risk_assessment_type = #{riskAssessmentType,jdbcType=VARCHAR},
+      cohesion_date = #{cohesionDate,jdbcType=TIMESTAMP},
+      cohesion_situation = #{cohesionSituation,jdbcType=VARCHAR},
+      place_date = #{placeDate,jdbcType=TIMESTAMP},
+      place_situation = #{placeSituation,jdbcType=VARCHAR},
+      unplace_reason = #{unplaceReason,jdbcType=VARCHAR},
+      help_teach_situation = #{helpTeachSituation,jdbcType=VARCHAR},
+      is_crime_again = #{isCrimeAgain,jdbcType=INTEGER},
+      re_condemned = #{reCondemned,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=INTEGER}
+    where emancipist_id = #{emancipistId,jdbcType=INTEGER}
+  </update>
+    <select id="queryEmancipistListByKeywords"
+		resultMap="EmancipistDtoResultMap">
+		select r.id_no,r.name,r.sex,r.contact,e.risk_assessment_type,e.cohesion_date,e.place_situation,e.emancipist_id,e.resident_base_id from emancipist_info e 
+		inner join resident_base_info r on e.resident_base_id = r.resident_base_id
+		where 1=1
+        <if test="cohesionDate != null">
+        and e.cohesion_date >= #{cohesionDate,jdbcType=TIMESTAMP}
+      	</if>
+        <if test="riskAssessmentType != null">
+        and e.risk_assessment_type = #{riskAssessmentType,jdbcType=VARCHAR}
+      	</if>
+        <if test="placeSituation != null">
+        and e.place_situation = #{placeSituation,jdbcType=VARCHAR}
+      	</if>      	      	
+        <if test="name != null" >
+        and r.name like CONCAT('%', #{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="idNo != null" >
+        and r.id_no like CONCAT('%', #{idNo,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="residentBaseIds != null">
+			and r.resident_base_id in 
+			<foreach collection="residentBaseIds" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

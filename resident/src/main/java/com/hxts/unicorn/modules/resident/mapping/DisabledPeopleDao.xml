@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.DisabledPeopleDao" >
+  <resultMap id="BaseResultMap" type="com.hxts.unicorn.modules.resident.model.DisabledPeople" >
+    <id column="disabled_people_id" property="disabledPeopleId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="health_condition" property="healthCondition" jdbcType="VARCHAR" />
+    <result column="disabled_category" property="disabledCategory" jdbcType="VARCHAR" />
+    <result column="disabled_degree" property="disabledDegree" jdbcType="VARCHAR" />
+    <result column="disabled_no" property="disabledNo" jdbcType="VARCHAR" />
+    <result column="disabled_reason" property="disabledReason" jdbcType="VARCHAR" />
+    <result column="disabled_parts" property="disabledParts" jdbcType="VARCHAR" />
+    <result column="guarder_name" property="guarderName" jdbcType="VARCHAR" />
+    <result column="guarder_id_no" property="guarderIdNo" jdbcType="VARCHAR" />
+    <result column="guarder_contact" property="guarderContact" jdbcType="VARCHAR" />
+    <result column="family_disabled" property="familyDisabled" jdbcType="INTEGER" />
+    <result column="family_month_income" property="familyMonthIncome" jdbcType="VARCHAR" />
+    <result column="is_subsist_allowance" property="isSubsistAllowance" jdbcType="VARCHAR" />
+    <result column="employment_status" property="employmentStatus" jdbcType="VARCHAR" />
+    <result column="social_security_status" property="socialSecurityStatus" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="DisabledPeopleInfoResultMap" type="com.hxts.unicorn.platform.interfaces.biz.DisabledPeopleInfo" >
+    <id column="disabled_people_id" property="disabledPeopleId" jdbcType="INTEGER" />
+    <result column="resident_base_id" property="residentBaseId" jdbcType="INTEGER" />
+    <result column="health_condition" property="healthCondition" jdbcType="VARCHAR" />
+    <result column="disabled_category" property="disabledCategory" jdbcType="VARCHAR" />
+    <result column="disabled_degree" property="disabledDegree" jdbcType="VARCHAR" />
+    <result column="disabled_no" property="disabledNo" jdbcType="VARCHAR" />
+    <result column="disabled_reason" property="disabledReason" jdbcType="VARCHAR" />
+    <result column="disabled_parts" property="disabledParts" jdbcType="VARCHAR" />
+    <result column="guarder_name" property="guarderName" jdbcType="VARCHAR" />
+    <result column="guarder_id_no" property="guarderIdNo" jdbcType="VARCHAR" />
+    <result column="guarder_contact" property="guarderContact" jdbcType="VARCHAR" />
+    <result column="family_disabled" property="familyDisabled" jdbcType="INTEGER" />
+    <result column="family_month_income" property="familyMonthIncome" jdbcType="VARCHAR" />
+    <result column="is_subsist_allowance" property="isSubsistAllowance" jdbcType="VARCHAR" />
+    <result column="employment_status" property="employmentStatus" jdbcType="VARCHAR" />
+    <result column="social_security_status" property="socialSecurityStatus" jdbcType="VARCHAR" />
+    <result column="create_user_id" property="createUserId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    disabled_people_id, resident_base_id, health_condition, disabled_category, disabled_degree, 
+    disabled_no, disabled_reason, disabled_parts, guarder_name, guarder_id_no, guarder_contact, 
+    family_disabled, family_month_income, is_subsist_allowance, employment_status, social_security_status, 
+    create_user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="DisabledPeopleInfoResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from disabled_people_info
+    where disabled_people_id = #{disabledPeopleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from disabled_people_info
+    where disabled_people_id = #{disabledPeopleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxts.unicorn.modules.resident.model.DisabledPeople" >
+    insert into disabled_people_info (disabled_people_id, resident_base_id, 
+      health_condition, disabled_category, disabled_degree, 
+      disabled_no, disabled_reason, disabled_parts, 
+      guarder_name, guarder_id_no, guarder_contact, 
+      family_disabled, family_month_income, is_subsist_allowance, 
+      employment_status, social_security_status, 
+      create_user_id)
+    values (#{disabledPeopleId,jdbcType=INTEGER}, #{residentBaseId,jdbcType=INTEGER}, 
+      #{healthCondition,jdbcType=VARCHAR}, #{disabledCategory,jdbcType=VARCHAR}, #{disabledDegree,jdbcType=VARCHAR}, 
+      #{disabledNo,jdbcType=VARCHAR}, #{disabledReason,jdbcType=VARCHAR}, #{disabledParts,jdbcType=VARCHAR}, 
+      #{guarderName,jdbcType=VARCHAR}, #{guarderIdNo,jdbcType=VARCHAR}, #{guarderContact,jdbcType=VARCHAR}, 
+      #{familyDisabled,jdbcType=INTEGER}, #{familyMonthIncome,jdbcType=VARCHAR}, #{isSubsistAllowance,jdbcType=VARCHAR}, 
+      #{employmentStatus,jdbcType=VARCHAR}, #{socialSecurityStatus,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxts.unicorn.modules.resident.model.DisabledPeople" >
+    insert into disabled_people_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="disabledPeopleId != null" >
+        disabled_people_id,
+      </if>
+      <if test="residentBaseId != null" >
+        resident_base_id,
+      </if>
+      <if test="healthCondition != null" >
+        health_condition,
+      </if>
+      <if test="disabledCategory != null" >
+        disabled_category,
+      </if>
+      <if test="disabledDegree != null" >
+        disabled_degree,
+      </if>
+      <if test="disabledNo != null" >
+        disabled_no,
+      </if>
+      <if test="disabledReason != null" >
+        disabled_reason,
+      </if>
+      <if test="disabledParts != null" >
+        disabled_parts,
+      </if>
+      <if test="guarderName != null" >
+        guarder_name,
+      </if>
+      <if test="guarderIdNo != null" >
+        guarder_id_no,
+      </if>
+      <if test="guarderContact != null" >
+        guarder_contact,
+      </if>
+      <if test="familyDisabled != null" >
+        family_disabled,
+      </if>
+      <if test="familyMonthIncome != null" >
+        family_month_income,
+      </if>
+      <if test="isSubsistAllowance != null" >
+        is_subsist_allowance,
+      </if>
+      <if test="employmentStatus != null" >
+        employment_status,
+      </if>
+      <if test="socialSecurityStatus != null" >
+        social_security_status,
+      </if>
+      <if test="createUserId != null" >
+        create_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="disabledPeopleId != null" >
+        #{disabledPeopleId,jdbcType=INTEGER},
+      </if>
+      <if test="residentBaseId != null" >
+        #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="healthCondition != null" >
+        #{healthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledCategory != null" >
+        #{disabledCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledDegree != null" >
+        #{disabledDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledNo != null" >
+        #{disabledNo,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledReason != null" >
+        #{disabledReason,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledParts != null" >
+        #{disabledParts,jdbcType=VARCHAR},
+      </if>
+      <if test="guarderName != null" >
+        #{guarderName,jdbcType=VARCHAR},
+      </if>
+      <if test="guarderIdNo != null" >
+        #{guarderIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="guarderContact != null" >
+        #{guarderContact,jdbcType=VARCHAR},
+      </if>
+      <if test="familyDisabled != null" >
+        #{familyDisabled,jdbcType=INTEGER},
+      </if>
+      <if test="familyMonthIncome != null" >
+        #{familyMonthIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="isSubsistAllowance != null" >
+        #{isSubsistAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="employmentStatus != null" >
+        #{employmentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="socialSecurityStatus != null" >
+        #{socialSecurityStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxts.unicorn.modules.resident.model.DisabledPeople" >
+    update disabled_people_info
+    <set >
+      <if test="residentBaseId != null" >
+        resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      </if>
+      <if test="healthCondition != null" >
+        health_condition = #{healthCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledCategory != null" >
+        disabled_category = #{disabledCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledDegree != null" >
+        disabled_degree = #{disabledDegree,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledNo != null" >
+        disabled_no = #{disabledNo,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledReason != null" >
+        disabled_reason = #{disabledReason,jdbcType=VARCHAR},
+      </if>
+      <if test="disabledParts != null" >
+        disabled_parts = #{disabledParts,jdbcType=VARCHAR},
+      </if>
+      <if test="guarderName != null" >
+        guarder_name = #{guarderName,jdbcType=VARCHAR},
+      </if>
+      <if test="guarderIdNo != null" >
+        guarder_id_no = #{guarderIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="guarderContact != null" >
+        guarder_contact = #{guarderContact,jdbcType=VARCHAR},
+      </if>
+      <if test="familyDisabled != null" >
+        family_disabled = #{familyDisabled,jdbcType=INTEGER},
+      </if>
+      <if test="familyMonthIncome != null" >
+        family_month_income = #{familyMonthIncome,jdbcType=VARCHAR},
+      </if>
+      <if test="isSubsistAllowance != null" >
+        is_subsist_allowance = #{isSubsistAllowance,jdbcType=VARCHAR},
+      </if>
+      <if test="employmentStatus != null" >
+        employment_status = #{employmentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="socialSecurityStatus != null" >
+        social_security_status = #{socialSecurityStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where disabled_people_id = #{disabledPeopleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxts.unicorn.modules.resident.model.DisabledPeople" >
+    update disabled_people_info
+    set resident_base_id = #{residentBaseId,jdbcType=INTEGER},
+      health_condition = #{healthCondition,jdbcType=VARCHAR},
+      disabled_category = #{disabledCategory,jdbcType=VARCHAR},
+      disabled_degree = #{disabledDegree,jdbcType=VARCHAR},
+      disabled_no = #{disabledNo,jdbcType=VARCHAR},
+      disabled_reason = #{disabledReason,jdbcType=VARCHAR},
+      disabled_parts = #{disabledParts,jdbcType=VARCHAR},
+      guarder_name = #{guarderName,jdbcType=VARCHAR},
+      guarder_id_no = #{guarderIdNo,jdbcType=VARCHAR},
+      guarder_contact = #{guarderContact,jdbcType=VARCHAR},
+      family_disabled = #{familyDisabled,jdbcType=INTEGER},
+      family_month_income = #{familyMonthIncome,jdbcType=VARCHAR},
+      is_subsist_allowance = #{isSubsistAllowance,jdbcType=VARCHAR},
+      employment_status = #{employmentStatus,jdbcType=VARCHAR},
+      social_security_status = #{socialSecurityStatus,jdbcType=VARCHAR},
+      create_user_id = #{createUserId,jdbcType=INTEGER}
+    where disabled_people_id = #{disabledPeopleId,jdbcType=INTEGER}
+  </update>
+</mapper>

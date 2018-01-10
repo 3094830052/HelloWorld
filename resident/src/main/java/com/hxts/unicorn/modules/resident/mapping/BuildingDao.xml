@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.BuildingDao">
+	<resultMap id="BaseBuildingInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.BuildingInfo">
+		<id column="building_id" jdbcType="BIGINT" property="buildingId" />
+		<result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+		<result column="building_area" jdbcType="DOUBLE" property="buildingArea" />
+		<result column="aboveground_num" jdbcType="INTEGER" property="abovegroundNum" />
+		<result column="underground_num" jdbcType="INTEGER" property="undergroundNum" />
+		<result column="household_num" jdbcType="INTEGER" property="householdNum" />
+		<result column="completiony_year" jdbcType="INTEGER" property="completionyYear" />
+		<result column="building_purpose" jdbcType="INTEGER" property="buildingPurpose" />
+		<result column="design_org" jdbcType="VARCHAR" property="designOrg" />
+		<result column="construction_unit" jdbcType="VARCHAR" property="constructionUnit" />
+		<result column="unit_num" jdbcType="INTEGER" property="unitNum" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="district" jdbcType="VARCHAR" property="district" />
+		<result column="street" jdbcType="VARCHAR" property="street" />
+		<result column="community" jdbcType="VARCHAR" property="community" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="longitude" jdbcType="VARCHAR" property="longitude" />
+		<result column="latitude" jdbcType="VARCHAR" property="latitude" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="grid_id" jdbcType="INTEGER" property="gridId" />
+		<result column="grid_name" jdbcType="VARCHAR" property="gridName" />
+		<result column="building_manager_id" jdbcType="BIGINT"
+			property="buildingManagerId" />
+		<result column="building_manager_name" jdbcType="VARCHAR"
+			property="buildingManagerName" />
+		<result column="building_manager_contact" jdbcType="VARCHAR"
+			property="buildingManagerContact" />
+		<result column="construction_drawings" jdbcType="VARCHAR"
+			property="constructionDrawings" />
+		<result column="pictures" jdbcType="VARCHAR" property="pictures" />
+	</resultMap>
+	<resultMap id="BuildingInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.BuildingInfo">
+		<id column="building_id" jdbcType="BIGINT" property="buildingId" />
+		<result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+		<result column="building_area" jdbcType="DOUBLE" property="buildingArea" />
+		<result column="aboveground_num" jdbcType="INTEGER" property="abovegroundNum" />
+		<result column="underground_num" jdbcType="INTEGER" property="undergroundNum" />
+		<result column="household_num" jdbcType="INTEGER" property="householdNum" />
+		<result column="completiony_year" jdbcType="INTEGER" property="completionyYear" />
+		<result column="building_purpose" jdbcType="INTEGER" property="buildingPurpose" />
+		<result column="design_org" jdbcType="VARCHAR" property="designOrg" />
+		<result column="construction_unit" jdbcType="VARCHAR" property="constructionUnit" />
+		<result column="unit_num" jdbcType="INTEGER" property="unitNum" />
+		<result column="province" jdbcType="VARCHAR" property="province" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="district" jdbcType="VARCHAR" property="district" />
+		<result column="street" jdbcType="VARCHAR" property="street" />
+		<result column="community" jdbcType="VARCHAR" property="community" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="longitude" jdbcType="VARCHAR" property="longitude" />
+		<result column="latitude" jdbcType="VARCHAR" property="latitude" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="grid_id" jdbcType="INTEGER" property="gridId" />
+		<result column="grid_name" jdbcType="VARCHAR" property="gridName" />
+		<result column="building_manager_id" jdbcType="BIGINT"
+			property="buildingManagerId" />
+		<result column="building_manager_name" jdbcType="VARCHAR"
+			property="buildingManagerName" />
+		<result column="building_manager_contact" jdbcType="VARCHAR"
+			property="buildingManagerContact" />
+		<result column="construction_drawings" jdbcType="VARCHAR"
+			property="constructionDrawings" />
+		<result column="pictures" jdbcType="VARCHAR" property="pictures" />
+		<collection property="houseInfos" column="building_id"
+			ofType="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+			<id column="house_id" jdbcType="BIGINT" property="houseId" />
+			<result column="unit_number" jdbcType="INTEGER" property="unitNumber" />
+			<result column="floor_number" jdbcType="INTEGER" property="floorNumber" />
+			<result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+			<result column="structure_area" jdbcType="DOUBLE" property="structureArea" />
+			<result column="usable_area" jdbcType="DOUBLE" property="usableArea" />
+			<result column="pool_area" jdbcType="DOUBLE" property="poolArea" />
+			<result column="house_type" jdbcType="VARCHAR" property="houseType" />
+			<result column="building_id" jdbcType="BIGINT" property="buildingId" />
+		</collection>
+	</resultMap>
+	<sql id="Base_Column_List">
+		building_id, building_name, building_area, aboveground_num,
+		underground_num, household_num, completiony_year, building_purpose,
+		design_org,
+		construction_unit, unit_num, province, city, district,
+		street, community, address, longitude, latitude, remark, grid_id,
+		grid_name,
+		building_manager_id, building_manager_name,
+		building_manager_contact,
+		construction_drawings, pictures
+	</sql>
+	<delete id="deleteBuildingById" parameterType="java.lang.Long">
+		delete from
+		building
+		where
+		building_id = #{buildingId,jdbcType=BIGINT}
+	</delete>
+	<delete id="batchDleteByBuidlingIds" parameterType="java.util.List">
+		delete from building
+		<if test="null != buildingIds and buildingIds.size > 0">
+			and building_id in
+			<foreach item="item" index="index" collection="list" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	<insert id="addBuilding" useGeneratedKeys="true" keyProperty="buildingId"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.BuildingInfo">
+		insert into building(building_name, building_area,
+		aboveground_num,
+		underground_num, household_num, completiony_year,
+		building_purpose,
+		design_org,
+		construction_unit, unit_num, province,
+		city, district,
+		street, community, address, longitude, latitude,
+		remark, grid_id,
+		grid_name,
+		building_manager_id, building_manager_name,
+		building_manager_contact,
+		construction_drawings, pictures)
+		values
+		(#{buildingName,jdbcType=VARCHAR}, #{buildingArea,jdbcType=DOUBLE},
+		#{abovegroundNum,jdbcType=INTEGER},
+		#{undergroundNum,jdbcType=INTEGER},
+		#{householdNum,jdbcType=INTEGER},#{completionyYear,jdbcType=INTEGER},
+		#{buildingPurpose,jdbcType=INTEGER}, #{designOrg,jdbcType=VARCHAR},
+		#{constructionUnit,jdbcType=VARCHAR},
+		#{unitNum,jdbcType=INTEGER},
+		#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+		#{district,jdbcType=VARCHAR},#{street,jdbcType=VARCHAR},
+		#{community,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},#{longitude,jdbcType=VARCHAR},#{latitude,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{gridId,jdbcType=INTEGER},
+		#{gridName,jdbcType=VARCHAR}, #{buildingManagerId,jdbcType=BIGINT},
+		#{buildingManagerName,jdbcType=VARCHAR},
+		#{buildingManagerContact,jdbcType=VARCHAR},
+		#{constructionDrawings,jdbcType=VARCHAR},
+		#{pictures,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateBuilding" parameterType="com.hxts.unicorn.platform.interfaces.biz.BuildingInfo">
+		update building
+		<set>
+			<if test="buildingName != null">
+				building_name = #{buildingName,jdbcType=VARCHAR},
+			</if>
+			<if test="buildingArea != null">
+				building_area = #{buildingArea,jdbcType=DOUBLE},
+			</if>
+			<if test="abovegroundNum != null">
+				aboveground_num = #{abovegroundNum,jdbcType=INTEGER},
+			</if>
+			<if test="undergroundNum != null">
+				underground_num = #{undergroundNum,jdbcType=INTEGER},
+			</if>
+			<if test="householdNum != null">
+				household_num = #{householdNum,jdbcType=INTEGER},
+			</if>
+			<if test="completionyYear != null">
+				completiony_year = #{completionyYear,jdbcType=INTEGER},
+			</if>
+			<if test="buildingPurpose != null">
+				building_purpose = #{buildingPurpose,jdbcType=INTEGER},
+			</if>
+			<if test="designOrg != null">
+				design_org = #{designOrg,jdbcType=VARCHAR},
+			</if>
+			<if test="constructionUnit != null">
+				construction_unit = #{constructionUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="unitNum != null">
+				unit_num = #{unitNum,jdbcType=INTEGER},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="district != null">
+				district = #{district,jdbcType=VARCHAR},
+			</if>
+			<if test="street != null">
+				street = #{street,jdbcType=VARCHAR},
+			</if>
+			<if test="community != null">
+				community = #{community,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				longitude = #{longitude,jdbcType=VARCHAR},
+			</if>
+			<if test="latitude != null">
+				latitude = #{latitude,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="gridId != null">
+				grid_id = #{gridId,jdbcType=INTEGER},
+			</if>
+			<if test="gridName != null">
+				grid_name = #{gridName,jdbcType=VARCHAR},
+			</if>
+			<if test="buildingManagerId != null">
+				building_manager_id =
+				#{buildingManagerId,jdbcType=BIGINT},
+			</if>
+			<if test="buildingManagerName != null">
+				building_manager_name =
+				#{buildingManagerName,jdbcType=VARCHAR},
+			</if>
+			<if test="buildingManagerContact != null">
+				building_manager_contact =
+				#{buildingManagerContact,jdbcType=VARCHAR},
+			</if>
+			<if test="constructionDrawings != null">
+				construction_drawings =
+				#{constructionDrawings,jdbcType=VARCHAR},
+			</if>
+			<if test="pictures != null">
+				pictures = #{pictures,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where building_id = #{buildingId,jdbcType=BIGINT}
+	</update>
+
+	<select id="queryBaseBuildingById" resultMap="BaseBuildingInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from building where 1=1
+		<if test="buildingId != null">
+			and building_id=
+			#{buildingId,jdbcType=BIGINT}
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryBuildingById" resultMap="BuildingInfoResultMap">
+		select b.building_id, b.building_name, b.building_area,
+		b.aboveground_num,
+		b.underground_num, b.household_num,
+		b.completiony_year,
+		b.building_purpose,
+		b.design_org,
+		b.construction_unit, b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.longitude, b.remark, b.grid_id,
+		b.grid_name,
+		b.building_manager_id,
+		b.building_manager_name,
+		b.building_manager_contact,
+		b.construction_drawings, b.pictures,
+		h.house_id, h.unit_number, h.floor_number, h.house_number,
+		h.house_type,
+		h.building_id
+		from building b, house h
+		where b.building_id
+		= h.building_id
+		<if test="buildingId != null">
+			and b.building_id=
+			#{buildingId,jdbcType=BIGINT}
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and b.grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryBaseBuildingByIds" resultMap="BaseBuildingInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from building where 1=1
+		<if test="null != buildingIds and buildingIds.size > 0">
+			and building_id in
+			<foreach item="item" index="index" collection="buildingIds"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryBuildingByIds" resultMap="BuildingInfoResultMap">
+		select b.building_id, b.building_name, b.building_area,
+		b.aboveground_num,
+		b.underground_num, b.household_num,
+		b.completiony_year,
+		b.building_purpose,
+		b.design_org,
+		b.construction_unit, b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.longitude, b.remark, b.grid_id,
+		b.grid_name,
+		b.building_manager_id,
+		b.building_manager_name,
+		b.building_manager_contact,
+		b.construction_drawings, b.pictures,
+		h.house_id, h.unit_number, h.floor_number, h.house_number,
+		h.house_type, h.building_id
+		from building b, house h
+		where b.building_id
+		= h.building_id
+		<if test="null != buildingIds and buildingIds.size > 0">
+			and b.building_id in
+			<foreach item="item" index="index" collection="buildingIds"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and b.grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryBaseBuildingByBuildingFullName" resultMap="BaseBuildingInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from building where 1=1
+		<if test="buildingName!=null and buildingName !=''">
+			and (
+			street like '%${buildingName}%'
+			or community like
+			'%${buildingName}%'
+			or building_name like '%${buildingName}%'
+			or
+			concat(street, community, building_name) like '%${buildingName}%')
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryBuildingByBuildingFullName" resultMap="BuildingInfoResultMap">
+		select b.building_id, b.building_name, b.building_area,
+		b.aboveground_num,
+		b.underground_num, b.household_num,
+		b.completiony_year,
+		b.building_purpose,
+		b.design_org,
+		b.construction_unit, b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.longitude, b.remark, b.grid_id,
+		b.grid_name,
+		b.building_manager_id,
+		b.building_manager_name,
+		b.building_manager_contact,
+		b.construction_drawings, b.pictures,
+		h.house_id, h.unit_number,
+		h.floor_number, h.house_number,
+		h.house_type,
+		h.building_id
+		from building b, house h
+		where b.building_id
+		= h.building_id
+		<if test="buildingName!=null and buildingName !=''">
+			and (
+			street like '%${buildingName}%'
+			or community like
+			'%${buildingName}%'
+			or building_name like '%${buildingName}%'
+			or
+			concat(street, community, building_name) like '%${buildingName}%')
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and b.grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryBaseBuildingsByAddress" resultMap="BaseBuildingInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from building where 1=1
+		<if test="street!=null and street !=''">
+			and street = #{street,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="community!=null and community !=''">
+			and community = #{community,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="null != buildingIds and buildingIds.size > 0">
+			and building_id in
+			<foreach item="item" index="index" collection="buildingIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryBuildingsByAddress" resultMap="BuildingInfoResultMap">
+		select b.building_id, b.building_name, b.building_area,
+		b.aboveground_num,
+		b.underground_num, b.household_num,
+		b.completiony_year,
+		b.building_purpose,
+		b.design_org,
+		b.construction_unit, b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.longitude, b.remark, b.grid_id,
+		b.grid_name,
+		b.building_manager_id,
+		b.building_manager_name,
+		b.building_manager_contact,
+		b.construction_drawings, b.pictures,
+		h.house_id, h.unit_number, h.floor_number, h.house_number,
+		h.house_type,
+		h.building_id
+		from building b, house h
+		from building b,
+		house h where
+		b.building_id = h.building_id
+		<if test="street!=null and street !=''">
+			and b.street = #{street,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="community!=null and community !=''">
+			and b.community = #{community,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and b.grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="null != buildingIds and buildingIds.size > 0">
+			and building_id in
+			<foreach item="item" index="index" collection="buildingIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryBaseBuildingsByNameAndAddress" resultMap="BaseBuildingInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from building where 1=1
+		<if test="street!=null and street !=''">
+			and street = #{street,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="community!=null and community !=''">
+			and community = #{community,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="buildingName!=null and buildingName !=''">
+			and building_name = #{buildingName,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryBuildingsByNameAndAddress" resultMap="BuildingInfoResultMap">
+		select b.building_id, b.building_name, b.building_area,
+		b.aboveground_num,
+		b.underground_num, b.household_num,
+		b.completiony_year,
+		b.building_purpose,
+		b.design_org,
+		b.construction_unit, b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.longitude, b.remark, b.grid_id,
+		b.grid_name,
+		b.building_manager_id,
+		b.building_manager_name,
+		b.building_manager_contact,
+		b.construction_drawings, b.pictures,
+		h.house_id, h.unit_number, h.floor_number, h.house_number,
+		h.house_type,
+		h.building_id
+		from building b, house h
+		where h.building_id
+		= b.building_id
+		<if test="street!=null and street !=''">
+			and b.street = #{street,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="community!=null and community !=''">
+			and b.community = #{community,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="buildingName!=null and buildingName !=''">
+			and b.building_name = #{buildingName,
+			jdbcType=VARCHAR}
+		</if>
+		<if test="null != gridIds and gridIds.size > 0">
+			and b.grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryBaseBuildingsByGridId" resultMap="BaseBuildingInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from building where 1=1
+		<if test="gridId != null">
+			and grid_id = #{gridId,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="queryBuildingsByGridId" resultMap="BuildingInfoResultMap">
+		select
+		b.building_id, b.building_name, b.building_area,
+		b.aboveground_num,
+		b.underground_num, b.household_num,
+		b.completiony_year,
+		b.building_purpose,
+		b.design_org,
+		b.construction_unit, b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.longitude, b.remark, b.grid_id,
+		b.grid_name,
+		b.building_manager_id,
+		b.building_manager_name,
+		b.building_manager_contact,
+		b.construction_drawings, b.pictures,
+		h.house_id, h.unit_number,
+		h.floor_number, h.house_number,
+		h.house_type,
+		h.building_id
+		from building
+		b, house h
+		where h.building_id
+		= b.building_id
+		<if test="gridId != null">
+			and b.grid_id = #{gridId,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="queryBaseBuildingsByGridIds" resultMap="BaseBuildingInfoResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from building where 1=1
+		<if test="null != gridIds and gridIds.size > 0">
+			and grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryBuildingsByGridIds" resultMap="BuildingInfoResultMap">
+		select b.building_id, b.building_name, b.building_area,
+		b.aboveground_num,
+		b.underground_num, b.household_num,
+		b.completiony_year,
+		b.building_purpose,
+		b.design_org,
+		b.construction_unit, b.unit_num,
+		b.province, b.city, b.district,
+		b.street, b.community, b.address,
+		b.longitude, b.remark, b.grid_id,
+		b.grid_name,
+		b.building_manager_id,
+		b.building_manager_name,
+		b.building_manager_contact,
+		b.construction_drawings, b.pictures,
+		h.house_id, h.unit_number, h.floor_number, h.house_number,
+		h.house_type,
+		h.building_id
+		from building b, house h
+		where h.building_id
+		= b.building_id
+		<if test="null != gridIds and gridIds.size > 0">
+			and b.grid_id in
+			<foreach item="item" index="index" collection="gridIds" open="("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

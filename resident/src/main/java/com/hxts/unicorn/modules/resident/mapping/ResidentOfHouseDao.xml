@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxts.unicorn.modules.resident.dao.ResidentOfHouseDao">
+	<resultMap id="BaseRohResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.ResidentOfHouseInfo">
+		<id column="resident_of_house_id" jdbcType="BIGINT" property="residentOfHouseId" />
+		<result column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="resident_base_id" jdbcType="BIGINT" property="residentBaseId" />
+		<result column="resident_type" jdbcType="VARCHAR" property="residentType" />
+		<result column="rent_type" jdbcType="VARCHAR" property="rentType" />
+		<result column="hidden_danger" jdbcType="VARCHAR" property="hiddenDanger" />
+		<result column="associate_time" jdbcType="TIMESTAMP" property="associateTime" />
+	</resultMap>
+
+	<resultMap id="RohAndHouseInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.ResidentOfHouseInfo">
+		<id column="resident_of_house_id" jdbcType="BIGINT" property="residentOfHouseId" />
+		<result column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="resident_base_id" jdbcType="BIGINT" property="residentBaseId" />
+		<result column="resident_type" jdbcType="VARCHAR" property="residentType" />
+		<result column="rent_type" jdbcType="VARCHAR" property="rentType" />
+		<result column="hidden_danger" jdbcType="VARCHAR" property="hiddenDanger" />
+		<result column="associate_time" jdbcType="TIMESTAMP" property="associateTime" />
+		<association property="houseInfo" column="house_id"
+			javaType="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+			<id column="house_id" jdbcType="BIGINT" property="houseId" />
+			<result column="unit_number" jdbcType="INTEGER" property="unitNumber" />
+			<result column="floor_number" jdbcType="INTEGER" property="floorNumber" />
+			<result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+			<result column="house_type" jdbcType="VARCHAR" property="houseType" />
+			<result column="ower1_name" jdbcType="VARCHAR" property="ower1Name" />
+			<result column="ower1_contact" jdbcType="VARCHAR" property="ower1Contact" />
+			<result column="ower1_no_type" jdbcType="VARCHAR" property="ower1NoType" />
+			<result column="ower1_no" jdbcType="VARCHAR" property="ower1No" />
+			<result column="ower1_address" jdbcType="VARCHAR" property="ower1Address" />
+		</association>
+	</resultMap>
+
+	<resultMap id="RohAndResidentInfoResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.ResidentOfHouseInfo">
+		<id column="resident_of_house_id" jdbcType="BIGINT" property="residentOfHouseId" />
+		<result column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="resident_base_id" jdbcType="BIGINT" property="residentBaseId" />
+		<result column="resident_type" jdbcType="VARCHAR" property="residentType" />
+		<result column="rent_type" jdbcType="VARCHAR" property="rentType" />
+		<result column="hidden_danger" jdbcType="VARCHAR" property="hiddenDanger" />
+		<result column="associate_time" jdbcType="TIMESTAMP" property="associateTime" />
+		<association property="residentBaseInfo" column="resident_base_id"
+			javaType="com.hxts.unicorn.platform.interfaces.biz.ResidentBaseInfo">
+			<id column="resident_base_id" jdbcType="INTEGER" property="residentBaseId" />
+			<result column="id_no" jdbcType="VARCHAR" property="idNo" />
+			<result column="name" jdbcType="VARCHAR" property="name" />
+			<result column="birth_date" jdbcType="VARCHAR" property="birthDate" />
+			<result column="sex" jdbcType="VARCHAR" property="sex" />
+		</association>
+	</resultMap>
+	<resultMap id="RohOfAllResultMap"
+		type="com.hxts.unicorn.platform.interfaces.biz.ResidentOfHouseInfo">
+		<id column="resident_of_house_id" jdbcType="BIGINT" property="residentOfHouseId" />
+		<result column="house_id" jdbcType="BIGINT" property="houseId" />
+		<result column="resident_base_id" jdbcType="BIGINT" property="residentBaseId" />
+		<result column="resident_type" jdbcType="VARCHAR" property="residentType" />
+		<result column="associate_time" jdbcType="TIMESTAMP" property="associateTime" />
+		<result column="disassociate_time" jdbcType="TIMESTAMP"
+			property="disassociateTime" />
+		<association property="houseInfo" column="house_id"
+			javaType="com.hxts.unicorn.platform.interfaces.biz.HouseInfo">
+			<id column="house_id" jdbcType="BIGINT" property="houseId" />
+			<result column="unit_number" jdbcType="INTEGER" property="unitNumber" />
+			<result column="floor_number" jdbcType="INTEGER" property="floorNumber" />
+			<result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+			<result column="structure_area" jdbcType="DOUBLE" property="structureArea" />
+			<result column="usable_area" jdbcType="DOUBLE" property="usableArea" />
+			<result column="pool_area" jdbcType="DOUBLE" property="poolArea" />
+			<result column="house_type" jdbcType="VARCHAR" property="houseType" />
+			<result column="unit_number" jdbcType="INTEGER" property="unitNumber" />
+			<result column="ower1_name" jdbcType="VARCHAR" property="ower1Name" />
+			<result column="ower1_contact" jdbcType="VARCHAR" property="ower1Contact" />
+			<result column="ower1_no_type" jdbcType="VARCHAR" property="ower1NoType" />
+			<result column="ower1_no" jdbcType="VARCHAR" property="ower1No" />
+			<result column="ower1_address" jdbcType="VARCHAR" property="ower1Address" />
+			<result column="building_id" jdbcType="BIGINT" property="buildingId" />
+			<association property="buildingInfo" column="building_id"
+				javaType="com.hxts.unicorn.platform.interfaces.biz.BuildingInfo">
+				<id column="building_id" jdbcType="BIGINT" property="buildingId" />
+				<result column="building_name" jdbcType="VARCHAR" property="buildingName" />
+				<result column="household_num" jdbcType="INTEGER" property="householdNum" />
+				<result column="building_purpose" jdbcType="INTEGER"
+					property="buildingPurpose" />
+				<result column="street" jdbcType="VARCHAR" property="street" />
+				<result column="community" jdbcType="VARCHAR" property="community" />
+				<result column="unit_num" jdbcType="INTEGER" property="unitNum" />
+				<result column="grid_id" jdbcType="INTEGER" property="gridId" />
+				<result column="grid_name" jdbcType="VARCHAR" property="gridName" />
+			</association>
+		</association>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		resident_of_house_id, house_id, resident_base_id,
+		resident_type, rent_type, hidden_danger, associate_time
+	</sql>
+	<delete id="deleteRohById" parameterType="java.lang.Long">
+		delete from
+		resident_of_house
+		where resident_of_house_id =
+		#{residentOfHouseId,jdbcType=BIGINT}
+	</delete>
+	<insert id="addResidentOfHouse" useGeneratedKeys="true"
+		keyProperty="residentOfHouseId"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.ResidentOfHouseInfo">
+		insert into resident_of_house (
+		house_id,
+		resident_base_id,
+		resident_type, rent_type, hidden_danger,
+		associate_time
+		)
+		values
+		(#{houseId,jdbcType=BIGINT},
+		#{residentBaseId,jdbcType=BIGINT},
+		#{residentType,jdbcType=VARCHAR},
+		#{rentType,jdbcType=VARCHAR},
+		#{hiddenDanger,jdbcType=VARCHAR},
+		#{associateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<update id="updateResidentOfHouse"
+		parameterType="com.hxts.unicorn.platform.interfaces.biz.ResidentOfHouseInfo">
+		update resident_of_house
+		<set>
+			<if test="houseId != null">
+				house_id = #{houseId,jdbcType=BIGINT},
+			</if>
+			<if test="residentBaseId != null">
+				resident_base_id = #{residentBaseId,jdbcType=BIGINT},
+			</if>
+			<if test="residentType != null">
+				resident_type = #{residentType,jdbcType=VARCHAR},
+			</if>
+			<if test="rentType != null">
+				rent_type = #{rentType,jdbcType=VARCHAR},
+			</if>
+			<if test="hiddenDanger != null">
+				hidden_danger = #{hiddenDanger,jdbcType=VARCHAR},
+			</if>
+			<if test="associateTime != null">
+				associate_time = #{associateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where resident_of_house_id = #{residentOfHouseId,jdbcType=BIGINT}
+	</update>
+	<select id="queryBaseRohById" parameterType="java.lang.Long"
+		resultMap="BaseRohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_of_house
+		where resident_of_house_id =
+		#{residentOfHouseId,jdbcType=BIGINT}
+	</select>
+	<select id="queryRohByHouseIdAndResidentId" parameterType="java.lang.Long"
+		resultMap="BaseRohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_of_house
+		where house_id = #{houseId,jdbcType=BIGINT} and
+		resident_base_id =
+		#{residentId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryBaseRohByHouseId" parameterType="java.lang.Long"
+		resultMap="BaseRohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_of_house
+		where house_id = #{houseId,jdbcType=BIGINT}
+	</select>
+	<select id="queryRohByHouseId" parameterType="java.lang.Long"
+		resultMap="RohAndResidentInfoResultMap">
+		select
+		r.resident_of_house_id, r.house_id,
+		r.resident_base_id,
+		r.resident_type, r.rent_type,
+		r.hidden_danger,
+		r.associate_time,
+		i.resident_base_id, i.id_no, i.name, i.sex,
+		i.birth_date
+		from resident_of_house r, resident_base_info i
+		where
+		r.resident_base_id = i.resident_base_id and r.house_id =
+		#{houseId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryBaseRohByHouseIds" parameterType="list"
+		resultMap="BaseRohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_of_house where 1=1
+		<if test="null != houses and houses.size > 0">
+			and house_id in
+			<foreach item="item" index="index" collection="houses" open="("
+				separator="," close=")">
+				#{item.houseId}
+			</foreach>
+		</if>
+	</select>
+	<select id="queryRohByHouseIds" parameterType="list"
+		resultMap="RohAndResidentInfoResultMap">
+		select
+		r.resident_of_house_id, r.house_id,
+		r.resident_base_id,
+		r.resident_type, r.rent_type,
+		r.hidden_danger,
+		r.associate_time,
+		i.resident_base_id, i.id_no, i.name, i.sex,
+		i.birth_date
+		from
+		resident_of_house r, resident_base_info i
+		where
+		r.resident_base_id =
+		i.resident_base_id
+		<if test="null != houses and houses.size > 0">
+			and r.house_id in
+			<foreach item="item" index="index" collection="houses" open="("
+				separator="," close=")">
+				#{item.houseId}
+			</foreach>
+		</if>
+	</select>
+
+	<select id="queryBaseRohByResidentId" parameterType="java.lang.Long"
+		resultMap="BaseRohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_of_house
+		house h where
+		resident_base_id =
+		#{residentId,jdbcType=BIGINT}
+	</select>
+	<select id="queryRohAndHousesByResidentId" parameterType="java.lang.Long"
+		resultMap="RohAndHouseInfoResultMap">
+		select
+		r.resident_of_house_id, r.house_id,
+		r.resident_base_id,
+		r.resident_type, r.rent_type,
+		r.hidden_danger,
+		r.associate_time,
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.house_type,h.building_id,h.ower1_name,h.ower1_contact,h.ower1_no,h.ower1_address
+		from resident_of_house r,
+		house h where r.house_id = h.house_id and
+		r.resident_base_id =
+		#{residentId,jdbcType=BIGINT}
+	</select>
+	<select id="queryRohByResidentId" parameterType="java.lang.Long"
+		resultMap="RohOfAllResultMap">
+		select
+		r.resident_of_house_id, r.house_id,
+		r.resident_base_id,
+		r.resident_type, r.rent_type,
+		r.hidden_danger,
+		r.associate_time,
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number, h.house_type,h.building_id,
+		b.building_id,
+		b.building_name, b.household_num, b.building_purpose,
+		b.unit_num,
+		b.street, b.community, b.grid_id,
+		b.grid_name
+		from resident_of_house r,
+		house h, building b where
+		r.house_id =
+		h.house_id and h.building_id =
+		b.building_id
+		and
+		r.resident_base_id =
+		#{residentId,jdbcType=BIGINT}
+	</select>
+
+	<select id="queryBaseRohByResidentIds" parameterType="java.lang.Long"
+		resultMap="BaseRohResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from resident_of_house
+		house h where
+		resident_base_id =
+		#{residentId,jdbcType=BIGINT}
+	</select>
+	<select id="queryRohByResidentIds" parameterType="java.lang.Long"
+		resultMap="RohOfAllResultMap">
+		select
+		r.resident_of_house_id, r.house_id,
+		r.resident_base_id,
+		r.resident_type, r.rent_type,
+		r.hidden_danger,
+		r.associate_time,
+		h.house_id, h.unit_number,
+		h.floor_number,
+		h.house_number,
+		h.house_type,h.building_id,
+		b.building_id,
+		b.building_name,
+		b.household_num, b.building_purpose,
+		b.unit_num,
+		b.street, b.community,
+		b.grid_id,
+		b.grid_name
+		from resident_of_house r,
+		house h, building b
+		where
+		r.house_id =
+		h.house_id and h.building_id =
+		b.building_id
+		<if test="null != residentIds and residentIds.size > 0">
+			and r.resident_base_id in
+			<foreach item="item" index="index" collection="residentIds"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>
